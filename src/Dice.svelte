@@ -55,6 +55,7 @@
       //$gameState.turn = ($gameState.turn+1) %2;
       $gameState.status = `\nPlayer <em>${currentPlayer}</em> just rolled: <em>${diceToMove}</em>`;
       if (diceToMove === 0) {
+        //$gameState.status += "rolled a 0...";
         nextTurn();
       }
     } else {
@@ -69,7 +70,9 @@
   <pre>
 Round: <em>{$gameState.round}</em>
 it's Player <em>{currentPlayer}</em>'s turn<!--$gameState.turn: <em>{$gameState.turn}</em>-->
-dices rolled: <em>{String(!!($gameState.rolled))}</em> & player played: <em>{String(!!($gameState.played))}</em>
+<!--dices rolled: <em>{String(!!($gameState.rolled))}</em> & player played: <em>{String(!!($gameState.played))}</em>-->
+{@html ((!!($gameState.rolled))) ? `<em>Player ${currentPlayer}</em> rolled the Dices` : `<em>Player ${currentPlayer}</em> haven't rolled yet.`}
+{@html ((!($gameState.played) && !!($gameState.rolled))) ? `Waiting for <em>Player ${currentPlayer}</em> to play` : ``}
 
 {@html $gameState.status}
 
@@ -77,7 +80,7 @@ dices rolled: <em>{String(!!($gameState.rolled))}</em> & player played: <em>{Str
 </div>
 <div class="dices">
   <Dices {dicesArr} />
-
+  <pre>it's a <em>{diceToMove}</em>!</pre>
 </div>
 <div class="command">
   <button on:click={roll}>ROLL</button>

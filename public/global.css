@@ -84,13 +84,16 @@ td {}
 .board { display: flex; justify-content: center; border: 2px solid green;}
 .pawns1 .pawn, .pawn[data-owner="1"] {background-color: orange; }
 .pawns2 .pawn, .pawn[data-owner="2"] {background-color: lightcoral;}
+.scoreboard {font-weight: bold;}
+.scoreboard[data-owner="1"] {color: orange;}
+.scoreboard[data-owner="2"] {color: lightcoral;}
 
 .pawns {display: flex; flex-direction: column; align-items: flex-end; width: 20%;}
 .pawns2 {align-items: flex-start;}
 /* .pawn {display: grid; box-sizing: border-box;border: 2px solid #777777;  place-items: center; width: 1em; height:1em;}
 .pawn + .pawn {border-top-width:0px;}
 */
-pre {text-align: left;}
+:not(.dices) > pre {text-align: left;}
 pre em {font-style: normal; font-weight: bold; background-color: #8506f644; padding: 0 .3em;}
 
 td, .pawn {
@@ -102,3 +105,11 @@ td { width: 2em; height: 2em; margin:0; display: table-cell; position: relative;
 
 td .pawn {top:0;left:0;}
 td.special {background-color: #a3438688;}
+
+code {
+	border-radius: .1em;
+	box-shadow: 0 0 0 .1em #61616188,
+				inset -.05em -.05em 0 0.1em #81818188;
+	background-color: #ccc;
+	padding: .2em .35em;
+}

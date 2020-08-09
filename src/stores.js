@@ -2,7 +2,7 @@ import { writable } from 'svelte/store';
 
 export let gameState = writable(
   {
-    round: 0,
+    round: 1,
     turn: 0,
     status: ""
   }
@@ -19,9 +19,9 @@ export default {
 export let board = writable(
   [{
     col: [
-      [13, 14, 0, 0, 1, 2, 3, 4],
+      [13, 14, 15, 0, 1, 2, 3, 4],
       [12, 11, 10, 9, 8, 7, 6, 5],
-      [13, 14, 0, 0, 1, 2, 3, 4]
+      [13, 14, 15, 0, 1, 2, 3, 4]
     ]
   },
   {
