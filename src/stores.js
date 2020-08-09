@@ -4,16 +4,18 @@ export let gameState = writable(
   {
     round: 1,
     turn: 0,
-    status: ""
+    status: "",
+    dicesArr: [0,0,0,0]
   }
 );
 
-let hello  = ()=>{
-  console.log("hello");
-}
-export default {
-  hello
-}
+export let game = writable(
+  {
+    points: [],
+    won: null
+  }
+);
+
 
 
 export let board = writable(

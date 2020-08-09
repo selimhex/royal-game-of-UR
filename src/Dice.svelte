@@ -1,5 +1,5 @@
 <script>
-  import stores, { gameState } from "./stores.js";
+  import {gameState, game, pawns } from "./stores.js";
   import Dices from "./Dices.svelte";
   import { random } from "./lib/random.js";
   //import { nextTurn } from "./logic.svelte";
@@ -20,25 +20,60 @@
       rolled: 0,
       played: 0,
       round: $gameState.round + 1,
-      status: $gameState.status + "\n...next turn..."
+      status: $gameState.status + "\n...next turn...",
+      dicesArr: [0,0,0,0]
     };
     console.log("NEXT TURN");
   };
+
+  let restart = function(){
+  $pawns = [
+    [
+      { loc: 0, p: 1, id: 1 },
+      { loc: 0, p: 1, id: 2 },
+      { loc: 0, p: 1, id: 3 },
+      { loc: 0, p: 1, id: 4 },
+      { loc: 0, p: 1, id: 5 },
+      { loc: 0, p: 1, id: 6 },
+      { loc: 0, p: 1, id: 7 }
+    ],
+    [
+      { loc: 0, p: 2, id: 1 },
+      { loc: 0, p: 2, id: 2 },
+      { loc: 0, p: 2, id: 3 },
+      { loc: 0, p: 2, id: 4 },
+      { loc: 0, p: 2, id: 5 },
+      { loc: 0, p: 2, id: 6 },
+      { loc: 0, p: 2, id: 7 }
+    ]
+  ];
+  $gameState =   {
+    round: 1,
+    turn: 0,
+    status: "",
+    dicesArr: [0,0,0,0]
+  };
+  $game =  {
+    points: [],
+    won: null
+  };
+
+}
   const sum = (accumulator, currentValue) => accumulator + currentValue;
 
-  let diceToMove;
+
 
   let rolled = 0;
 
   let played = 0;
   let currentPlayer;
-  let dicesArr = [0, 0, 0, 0];
-  $: diceToMove = dicesArr.reduce(sum);
+  $gameState.dicesArr = [0, 0, 0, 0];
+  $gameState.diceToMove = $gameState.dicesArr.reduce(sum);
   $: currentPlayer = $gameState.turn + 1;
-  $: $gameState.diceToMove = diceToMove;
   $gameState.rolled = rolled;
   $gameState.played = played;
-
+  
+ 
   let canitRoll = function () {
     return $gameState.rolled == 0 && $gameState.played == 0;
   };
@@ -46,15 +81,14 @@
     console.log($gameState.rolled, $gameState.played, canitRoll());
     if (canitRoll()) {
       //roll
-      dicesArr = rollAll();
-      {
-        diceToMove = dicesArr.reduce(sum);
-        $gameState.diceToMove = diceToMove;
-      }
+      $gameState.dicesArr = rollAll();
+
+        $gameState.diceToMove = $gameState.dicesArr.reduce(sum);
+
       $gameState.rolled = 1;
       //$gameState.turn = ($gameState.turn+1) %2;
-      $gameState.status = `\nPlayer <em>${currentPlayer}</em> just rolled: <em>${diceToMove}</em>`;
-      if (diceToMove === 0) {
+      $gameState.status = `\nPlayer <em>${currentPlayer}</em> just rolled: <em>${$gameState.diceToMove}</em>`;
+      if ($gameState.diceToMove === 0) {
         //$gameState.status += "rolled a 0...";
         nextTurn();
       }
@@ -79,11 +113,16 @@ it's Player <em>{currentPlayer}</em>'s turn<!--$gameState.turn: <em>{$gameState.
   </pre>
 </div>
 <div class="dices">
-  <Dices {dicesArr} />
-  <pre>it's a <em>{diceToMove}</em>!</pre>
+  
+  <Dices dicesArr="{$gameState.dicesArr}" />
+  {#if (!Boolean($gameState.played) && Boolean($gameState.rolled))}<pre>it's a <em>{$gameState.diceToMove}</em>!</pre>{/if}
 </div>
 <div class="command">
+  {#if $game.won}
+  <button on:click={restart}>RESTART</button>
+  {:else}
   <button on:click={roll}>ROLL</button>
   <button on:click={nextTurn}>PASS</button>
+  {/if}
 
 </div>

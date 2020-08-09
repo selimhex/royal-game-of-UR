@@ -8,6 +8,7 @@
     return document.querySelectorAll(a);
   };
 
+  
   export let col;
   export let loc;
   let owner;
@@ -37,12 +38,11 @@
       }
       //aPawnSpotted = p.find((e) => e.loc === loc && e.p === owner);
       if (!!aPawnSpotted) {
-        console.log(
-          "PAWN SPOTTED",
-          owner,
-          aPawnSpotted.p,
-          aPawnSpotted.id,
-          aPawnSpotted.loc
+        console.table(
+          "PAWN onboard!","" ,
+          "owner:", aPawnSpotted.p,"",
+          "id:", aPawnSpotted.id,"",
+          "loc:", aPawnSpotted.loc,""
         );
         //Paw = aPawnSpotted;
         break;

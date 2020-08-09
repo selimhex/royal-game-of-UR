@@ -36,6 +36,7 @@
       played: 0,
       round: $gameState.round + 1,
       status: $gameState.status + "\n...next turn...",
+      dicesArr: [0,0,0,0]
     };
     console.log("NEXT TURN");
   };
@@ -45,7 +46,7 @@
 
   let move = function (owner, id, thisPawn) {
     let ownerID = owner - 1;
-    console.log(mayItPlay(owner));
+    console.log(mayItPlay(owner)? `${owner} may play` : `${owner} may not play`);
     if (mayItPlay(owner)) {
       let col;
       // ###### FIX findIndex -> find ?!?!?!??! ####
@@ -125,8 +126,10 @@ Try another move!`;
         }
       }
     } else {
-      $gameState.status += `\nit's not your turn!.`;
-      console.log(`it's not your turn!.`);
+      //console.log(mayItPlay(owner)? `${owner} may play` : `${owner} may not play`);
+      $gameState.status += (owner !== undefined) ? `\nit's not Player <em>${owner}</em>'s turn!.` : `\nno pawns there!`
+      //$gameState.status += `\nit's not your turn!.`;
+      //console.log(`it's not your turn!.`);
     }
   };
 </script>
