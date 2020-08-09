@@ -1,0 +1,103 @@
+* {	box-sizing: border-box; margin: 0; padding: 0;
+	 font-size: inherit;
+	 line-height: 1em;
+}
+html, body {
+	position: relative;
+	width: 100%;
+	height: 100%;
+	font-size: 1rem;
+}
+
+body {
+	color: #333;
+	margin: 0;
+	padding: 8px;
+	box-sizing: border-box;
+	font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue", sans-serif;
+}
+
+a {
+	color: rgb(0,100,200);
+	text-decoration: none;
+}
+
+a:hover {
+	text-decoration: underline;
+}
+
+a:visited {
+	color: rgb(0,80,160);
+}
+
+label {
+	display: block;
+}
+
+input, button, select, textarea {
+	font-family: inherit;
+	font-size: inherit;
+	padding: 0.4em;
+	margin: 0 0 0.5em 0;
+	box-sizing: border-box;
+	border: 1px solid #ccc;
+	border-radius: 2px;
+}
+
+input:disabled {
+	color: #ccc;
+}
+
+input[type="range"] {
+	height: 0;
+}
+
+button {
+	color: #333;
+	background-color: #f4f4f4;
+	outline: none;
+}
+
+button:disabled {
+	color: #999;
+}
+
+button:not(:disabled):active {
+	background-color: #ddd;
+}
+
+button:focus {
+	border-color: #666;
+}
+
+
+
+.dices span {border: 1px solid orange; display: inline-block; margin: 0 .3em; padding: .5em; border-radius: .2em;}
+td {border: 2px solid #ccc; font-size: 1em;}
+table {
+
+	border-collapse: collapse;
+
+}
+table .none {border: 0;} 
+td {}
+.board { display: flex; justify-content: center; border: 2px solid green;}
+.pawns1 .pawn, .pawn[data-owner="0"] {background-color: orange; }
+.pawns2 .pawn, .pawn[data-owner="1"] {background-color: lightcoral;}
+
+.pawns {display: flex; flex-direction: column; align-items: flex-end; width: 20%;}
+.pawns2 {align-items: flex-start;}
+/* .pawn {display: grid; box-sizing: border-box;border: 2px solid #777777;  place-items: center; width: 1em; height:1em;}
+.pawn + .pawn {border-top-width:0px;}
+*/
+pre {text-align: left;}
+pre em {font-style: normal; font-weight: bold; background-color: #8506f644; padding: 0 .3em;}
+
+td, .pawn {
+	box-sizing: border-box;
+	display: inline-block; margin: .5em; padding: 0em; width: 1em; height: 1em; outline: #ccc1 solid 1px;
+}
+td { width: 2em; height: 2em; margin:0; display: table-cell; position: relative;}
+.pawn {width: 2em; height: 2em; margin:0; display: grid; place-items: center; border: 0px solid red; border-radius: 1em; box-shadow: inset -.075em -.085em 0 0 #5143a588; position: absolute;}
+
+td .pawn {top:0;left:0;}
