@@ -1,6 +1,7 @@
 <script>
   import { gameState, board, pawns } from "./stores.js";
   import Pawn from "./Pawn.svelte";
+  import ScoreBoard from "./ScoreBoard.svelte";
   let content;
   $: currentPlayer = $gameState.turn + 1;
   let residingPawn;
@@ -14,21 +15,18 @@
   let type = function (c) {
     return c < 5 || 12 < c ? "safe" : "combat";
   };
-  
+
   let tdclass = function (c) {
-    return (c===8) ? "special" : "";
+    return c === 8 ? "special" : "";
   };
-  
 
   let spotPawn = function (celliy) {
-    return $pawns[0].find((e) => e.loc === celliy); 
+    return $pawns[0].find((e) => e.loc === celliy);
   };
 
   let mayItPlay = function (owner) {
     return (
-      $gameState.rolled == 1 &&
-      $gameState.played == 0 &&
-      currentPlayer == owner
+      $gameState.rolled == 1 && $gameState.played == 0 && currentPlayer == owner
     );
   };
   let nextTurn = function () {
@@ -45,47 +43,40 @@
     return Object.keys(obj).length === 0;
   }
 
-  /*
-    const array1 = [{ a: "1", b: "b" }, { a: "1", b: "c" }, 12, 8, 130, 44];
-    let isCellFull = function (loc, owner) {
-      if (type(loc) === "safe") {
-        let isObj = $pawns[owner].find((o, i) => {
-          o.loc === loc;
-        });
-      } else {
-        //check opponent first
-        //check self later
-      }
-      let obj = $pawns[0].find((o, i) => {
-        if (o.loc === "string 1") {
-          $pawns[0][i] = { name: "new string", value: "this", other: "that" };
-          return true; // stop searching
-        }
-      });
-    };
-  */
-
   let move = function (owner, id, thisPawn) {
     let ownerID = owner - 1;
     console.log(mayItPlay(owner));
     if (mayItPlay(owner)) {
       let col;
+      // ###### FIX findIndex -> find ?!?!?!??! ####
       const index = $pawns[ownerID].findIndex((item) => item.id === Number(id));
       const pawnObj = $pawns[ownerID][index];
       const orderToGo = pawnObj.loc + $gameState.diceToMove;
       console.log(orderToGo, owner, pawnObj.id, pawnObj.loc);
       let found, foundOwn, foundOpponent;
-      if (type(pawnObj.loc + $gameState.diceToMove) === "safe") {
+      let foundBool,
+        foundOwnBool,
+        foundOpponentBool,
+        canMoveBool = true;
+      if (type(orderToGo) === "safe") {
         col = Number(owner == 1 ? 0 : 2);
         console.log("check col", col);
-        found = $pawns[ownerID].find((e) => e.loc === orderToGo);
-        found = found !== null && found !== undefined ? true : false;
-        if (found) {
-          $gameState.status = `<em>Player ${
-            owner
-          }'s </em> own pawn is there.`;
+        if (orderToGo === 15) {
+          pawnObj.loc = 15;
+          $gameState.status = `<em>Player ${owner}'s</em> Pawn <em>${pawnObj.id}</em> made it!.\n1 Point for <em>Player ${owner}!</em>`;
+        } else if (orderToGo > 15) {
+          canMoveBool = false;
+          $gameState.status = `You should land exactly onto the New Home\nIf you can't move otherwise you should <code>Pass</code>`;
+        } else if (orderToGo === 0) {
+          $gameState.status = `This message shouldn't appear. Case is checked in Dice.svelte`;
         } else {
-          // DO A COMMON NOT FOUND
+          found = $pawns[ownerID].find((e) => e.loc === orderToGo);
+          foundBool = found !== null && found !== undefined ? true : false;
+          if (foundBool) {
+            $gameState.status = `<em>Player ${owner}'s </em> own pawn is there. \nIf you can't move otherwise you should <code>Pass</code>`;
+          } else {
+            // DO A COMMON NOT FOUND ⏬
+          }
         }
       } else {
         // !!!!!!!!!!!!!!!!!! ITS COMBAT ZONE!!!!!!!!!!!!!!!!!!
@@ -93,41 +84,46 @@
         foundOpponent = $pawns[(ownerID + 1) % 2].find(
           (e) => e.loc === orderToGo
         );
-        foundOpponent =
+        foundOpponentBool =
           foundOpponent !== null && foundOpponent !== undefined ? true : false;
-        if (foundOpponent) {
+        if (foundOpponentBool) {
           $gameState.status = `Opponent <em>Player ${
             ((ownerID + 1) % 2) + 1
           }'s </em> pawn is there.`;
         }
         foundOwn = $pawns[ownerID].find((e) => e.loc === orderToGo);
-        foundOwn = foundOwn !== null && foundOwn !== undefined ? true : false;
+        foundOwnBool =
+          foundOwn !== null && foundOwn !== undefined ? true : false;
+        if (foundOwnBool) {
+          $gameState.status += `\n<em>Player ${owner}'s </em> own pawn is there.`;
+        }
       }
 
       console.log("that cell", col, orderToGo);
-      //const cellToGo = qS(`table td[data-col="${col}"][data-order="${orderToGo}"]`);
-      //const boardindex = $board[0].col[`${col}`].findIndex((item) => item === Number(orderToGo));
-      /*
-        console.log(boardindex);
-        console.log($board[1].col[col][boardindex]);
-        if (!isEmpty($board[1].col[col][boardindex])) {
-          console.log("// CELL PROBABLY HAS A PAWN");
-          //
-        }
-      */
+
       // ############## I CAN MOVE FREELY  ##############
-      if (!found && !foundOwn && !foundOpponent) {
+      if (!found && !foundOwn && !foundOpponentBool && canMoveBool) {
         console.log("MOVING PAWN");
         $gameState.status += `\nPlayer <em>${currentPlayer}</em>'s Pawn #<em>${pawnObj.id}</em> moving to square <em>${orderToGo}</em>`;
+        if (orderToGo === 8) {
+          $gameState.status += `\nPawn is now <em>Untouchable</em>!`;
+        }
         $pawns[ownerID][index].loc = orderToGo;
         $gameState.played = 1;
         nextTurn();
-        //$board[1].col[col][boardindex].owner = owner;
-        //$board[1].col[col][boardindex].id = id;
-
-        //cellToGo.appendChild(thisPawn);
+      } else if (foundOpponentBool) {
+        if (orderToGo === 8) {
+          $gameState.status += `\nPlayer <em>${foundOpponent.p}</em>'s Pawn #<em>${foundOpponent.id}</em> is Safe!
+Try another move!`;
+        } else {
+          $gameState.status += `Send 'em Home!`;
+          $gameState.status += `\nPlayer <em>${foundOpponent.p}</em>'s Pawn #<em>${foundOpponent.id}</em> going back Home `;
+          foundOpponent.loc = 0;
+          $pawns[ownerID][index].loc = orderToGo;
+          $gameState.played = 1;
+          nextTurn();
+        }
       }
-      //console.log(cellToGo, thisPawn, cellToGo.append(thisPawn));
     } else {
       $gameState.status += `\nit's not your turn!.`;
       console.log(`it's not your turn!.`);
@@ -151,7 +147,11 @@
     {#each $board[0].col[0] as row, iy}
       <tr>
         {#each $board[0].col as cell, ix}
-          {#if cell[iy] == '0'}
+          {#if cell[iy] == '15'}
+            <td class="none">
+              <ScoreBoard col={ix}/>
+            </td>
+          {:else if cell[iy] == '0'}
             <td class="none" />
           {:else}
             <td
@@ -159,9 +159,9 @@
               data-row={iy}
               data-order={cell[iy]}
               data-celltype={type(cell[iy])}
-              class={ tdclass(cell[iy]) }
+              class={tdclass(cell[iy])}
               on:click={(e) => move(e.target.dataset.owner, e.target.dataset.pawnname, e.target)}>
-              <Pawn col={ix} loc={cell[iy]}/>
+              <Pawn col={ix} loc={cell[iy]} />
               {cell[iy]}
             </td>
           {/if}
