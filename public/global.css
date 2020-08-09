@@ -82,8 +82,8 @@ table {
 table .none {border: 0;} 
 td {}
 .board { display: flex; justify-content: center; border: 2px solid green;}
-.pawns1 .pawn, .pawn[data-owner="0"] {background-color: orange; }
-.pawns2 .pawn, .pawn[data-owner="1"] {background-color: lightcoral;}
+.pawns1 .pawn, .pawn[data-owner="1"] {background-color: orange; }
+.pawns2 .pawn, .pawn[data-owner="2"] {background-color: lightcoral;}
 
 .pawns {display: flex; flex-direction: column; align-items: flex-end; width: 20%;}
 .pawns2 {align-items: flex-start;}
@@ -101,3 +101,4 @@ td { width: 2em; height: 2em; margin:0; display: table-cell; position: relative;
 .pawn {width: 2em; height: 2em; margin:0; display: grid; place-items: center; border: 0px solid red; border-radius: 1em; box-shadow: inset -.075em -.085em 0 0 #5143a588; position: absolute;}
 
 td .pawn {top:0;left:0;}
+td.special {background-color: #a3438688;}
