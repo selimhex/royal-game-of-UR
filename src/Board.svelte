@@ -4,7 +4,7 @@
   import ScoreBoard from "./ScoreBoard.svelte";
 
   import { fade } from 'svelte/transition';
-
+	import { flip } from 'svelte/animate';
   import { quintOut } from 'svelte/easing';
 	import { crossfade } from 'svelte/transition';
 
@@ -41,7 +41,7 @@
   };
 
   let tdclass = function (c) {
-    return c === 8 ? "special" : "";
+    return (c === 8 || c === 4) ? "special" : "";
   };
 
   let spotPawn = function (celliy) {
@@ -162,11 +162,11 @@ Try another move!`;
   <div
     class="pawns pawns1"
     on:click={(e) => move(e.target.dataset.owner, e.target.dataset.pawnname, e.target)}>
-    {#each $pawns[0] as pawn, i (pawn.id)}
-      {#if pawn.loc == 0}
-        <!--div class="pawn" data-owner="1" data-pawnname={pawn.id}>{pawn.id}</div-->
-        <Pawn col={0} loc={0} />
-      {/if}
+    {#each $pawns[0].filter(t => t.loc===0) as pawn (pawn.id)}
+
+        <div class="pawn" data-owner={pawn.p} data-pawnname={pawn.id} in:receive="{{key: pawn.key}}" out:send="{{key: pawn.key}}" animate:flip>
+          {pawn.id}
+        </div>
     {/each}
 
   </div>
@@ -189,9 +189,22 @@ Try another move!`;
               data-celltype={type(cell[iy])}
               class={tdclass(cell[iy])}
               on:click={(e) => move(e.target.dataset.owner, e.target.dataset.pawnname, e.target)}>
-              <Pawn col={ix} loc={cell[iy]} />
+              {#each $pawns as pawnsOf, i}
+                {#each pawnsOf.filter(t => t.loc===cell[iy] && 
+                    (
+                      (type(t.loc) === "safe") ? ix === ( (i===0) ? 0 : 2 ) : true 
+                    )
+                  ) as pawn, iP}
+              <div class="pawn" data-owner={pawn.p} data-pawnname={pawn.id} in:receive="{{key: pawn.key}}"
+              out:send="{{key: pawn.key}}"
+              >
+                {pawn.id}
+              </div>
+                {/each}
+              {/each}
               {cell[iy]}
             </td>
+            
           {/if}
         {/each}
       </tr>
@@ -201,11 +214,12 @@ Try another move!`;
   <div
     class="pawns pawns2"
     on:click={(e) => move(e.target.dataset.owner, e.target.dataset.pawnname, e.target)}>
-    {#each $pawns[1] as pawn, i (pawn.id)}
-      {#if pawn.loc == 0}
-        <!--div class="pawn" data-owner="2" data-pawnname={pawn.id}>{pawn.id}</div-->
-        <Pawn col={2} loc={0} />
-      {/if}
+    {#each $pawns[1].filter(t => t.loc===0) as pawn (pawn.id)}
+
+    <div class="pawn" data-owner={pawn.p} data-pawnname={pawn.id} in:receive="{{key: pawn.key}}"
+    out:send="{{key: pawn.key}}" animate:flip>
+      {pawn.id}
+    </div>
     {/each}
   </div>
 </div>

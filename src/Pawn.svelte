@@ -48,7 +48,7 @@
   let aPawnSpotted;
   let Paw;
   let key;
-$: {
+{
     for (let i = 0; i < 2; i++) {
 //      console.log($pawns[i]);
       let p = $pawns[i];
@@ -90,8 +90,8 @@ loc:{loc}
   out:send="{{key: aPawnSpotted.id}}"-->
 <!--in:receive="{{key: pawn.p +" "+ pawn.id}}"
         out:send="{{key: pawn.p +" "+ pawn.id}}"-->
-<div class="pawn" data-owner={aPawnSpotted.p} data-pawnname={aPawnSpotted.id} in:receive="{{key: key}}"
+<!--<div class="pawn" data-owner={aPawnSpotted.p} data-pawnname={aPawnSpotted.id} in:receive="{{key: key}}"
 out:send="{{key: key}}">
 {aPawnSpotted.p}.{aPawnSpotted.id}.{key}.{aPawnSpotted.loc}
-  </div>
+  </div>-->
 {/if}
