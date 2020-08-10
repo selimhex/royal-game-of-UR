@@ -2,6 +2,30 @@
   import { gameState, board, pawns } from "./stores.js";
   import Pawn from "./Pawn.svelte";
   import ScoreBoard from "./ScoreBoard.svelte";
+
+  import { fade } from 'svelte/transition';
+
+  import { quintOut } from 'svelte/easing';
+	import { crossfade } from 'svelte/transition';
+
+	const [send, receive] = crossfade({
+		duration: d => Math.sqrt(d * 200),
+
+		fallback(node, params) {
+			const style = getComputedStyle(node);
+			const transform = style.transform === 'none' ? '' : style.transform;
+
+			return {
+				duration: 600,
+				easing: quintOut,
+				css: t => `
+					transform: ${transform} scale(${t});
+					opacity: ${t}
+				`
+			};
+		}
+	});
+
   let content;
   $: currentPlayer = $gameState.turn + 1;
   let residingPawn;
@@ -140,7 +164,8 @@ Try another move!`;
     on:click={(e) => move(e.target.dataset.owner, e.target.dataset.pawnname, e.target)}>
     {#each $pawns[0] as pawn, i (pawn.id)}
       {#if pawn.loc == 0}
-        <div class="pawn" data-owner="1" data-pawnname={pawn.id}>{pawn.id}</div>
+        <!--div class="pawn" data-owner="1" data-pawnname={pawn.id}>{pawn.id}</div-->
+        <Pawn col={0} loc={0} />
       {/if}
     {/each}
 
@@ -178,7 +203,8 @@ Try another move!`;
     on:click={(e) => move(e.target.dataset.owner, e.target.dataset.pawnname, e.target)}>
     {#each $pawns[1] as pawn, i (pawn.id)}
       {#if pawn.loc == 0}
-        <div class="pawn" data-owner="2" data-pawnname={pawn.id}>{pawn.id}</div>
+        <!--div class="pawn" data-owner="2" data-pawnname={pawn.id}>{pawn.id}</div-->
+        <Pawn col={2} loc={0} />
       {/if}
     {/each}
   </div>
