@@ -53,9 +53,9 @@
       $gameState.rolled == 1 && $gameState.played == 0 && currentPlayer == owner
     );
   };
-  let nextTurn = function () {
+  let nextTurn = function (doubledice=false) {
     $gameState = {
-      turn: ($gameState.turn + 1) % 2,
+      turn: ($gameState.turn + (doubledice? 0 : 1)) % 2,
       rolled: 0,
       played: 0,
       round: $gameState.round + 1,
@@ -129,13 +129,16 @@
       // ############## I CAN MOVE FREELY  ##############
       if (!found && !foundOwn && !foundOpponentBool && canMoveBool) {
         console.log("MOVING PAWN");
-        $gameState.status += `\nPlayer <em>${currentPlayer}</em>'s Pawn #<em>${pawnObj.id}</em> moving to square <em>${orderToGo}</em>`;
+        $gameState.status += `\nPlayer <em data-player="${currentPlayer}">${currentPlayer}</em>'s Pawn #<em data-player="${currentPlayer}">${pawnObj.id}</em> moving to square <em>${orderToGo}</em>`;
         if (orderToGo === 8) {
           $gameState.status += `\nPawn is now <em>Untouchable</em>!`;
         }
+        if (orderToGo === 8 || orderToGo === 4) {
+          $gameState.status += `\n<em data-player="${currentPlayer}">${currentPlayer} gets to play again!</em>`;
+        }
         $pawns[ownerID][index].loc = orderToGo;
         $gameState.played = 1;
-        nextTurn();
+        nextTurn((orderToGo === 8 || orderToGo === 4)? true:false);
       } else if (foundOpponentBool) {
         if (orderToGo === 8) {
           $gameState.status += `\nPlayer <em>${foundOpponent.p}</em>'s Pawn #<em>${foundOpponent.id}</em> is Safe!

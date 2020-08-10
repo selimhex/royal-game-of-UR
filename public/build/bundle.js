@@ -1482,7 +1482,7 @@ var app = (function () {
     	return child_ctx;
     }
 
-    // (165:4) {#each $pawns[0].filter(t => t.loc===0) as pawn (pawn.id)}
+    // (168:4) {#each $pawns[0].filter(t => t.loc===0) as pawn (pawn.id)}
     function create_each_block_5(key_1, ctx) {
     	let div;
     	let t0_value = /*pawn*/ ctx[20].id + "";
@@ -1506,7 +1506,7 @@ var app = (function () {
     			attr_dev(div, "class", "pawn");
     			attr_dev(div, "data-owner", div_data_owner_value = /*pawn*/ ctx[20].p);
     			attr_dev(div, "data-pawnname", div_data_pawnname_value = /*pawn*/ ctx[20].id);
-    			add_location(div, file$1, 166, 8, 5807);
+    			add_location(div, file$1, 169, 8, 6124);
     			this.first = div;
     		},
     		m: function mount(target, anchor) {
@@ -1564,14 +1564,14 @@ var app = (function () {
     		block,
     		id: create_each_block_5.name,
     		type: "each",
-    		source: "(165:4) {#each $pawns[0].filter(t => t.loc===0) as pawn (pawn.id)}",
+    		source: "(168:4) {#each $pawns[0].filter(t => t.loc===0) as pawn (pawn.id)}",
     		ctx
     	});
 
     	return block;
     }
 
-    // (184:10) {:else}
+    // (187:10) {:else}
     function create_else_block(ctx) {
     	let td;
     	let t0;
@@ -1612,7 +1612,7 @@ var app = (function () {
     			attr_dev(td, "data-order", td_data_order_value = /*cell*/ ctx[26][/*iy*/ ctx[25]]);
     			attr_dev(td, "data-celltype", td_data_celltype_value = /*type*/ ctx[4](/*cell*/ ctx[26][/*iy*/ ctx[25]]));
     			attr_dev(td, "class", td_class_value = /*tdclass*/ ctx[5](/*cell*/ ctx[26][/*iy*/ ctx[25]]));
-    			add_location(td, file$1, 184, 12, 6321);
+    			add_location(td, file$1, 187, 12, 6638);
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, td, anchor);
@@ -1703,14 +1703,14 @@ var app = (function () {
     		block,
     		id: create_else_block.name,
     		type: "else",
-    		source: "(184:10) {:else}",
+    		source: "(187:10) {:else}",
     		ctx
     	});
 
     	return block;
     }
 
-    // (182:36) 
+    // (185:36) 
     function create_if_block_1(ctx) {
     	let td;
 
@@ -1718,7 +1718,7 @@ var app = (function () {
     		c: function create() {
     			td = element("td");
     			attr_dev(td, "class", "none");
-    			add_location(td, file$1, 182, 12, 6271);
+    			add_location(td, file$1, 185, 12, 6588);
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, td, anchor);
@@ -1735,14 +1735,14 @@ var app = (function () {
     		block,
     		id: create_if_block_1.name,
     		type: "if",
-    		source: "(182:36) ",
+    		source: "(185:36) ",
     		ctx
     	});
 
     	return block;
     }
 
-    // (178:10) {#if cell[iy] == '15'}
+    // (181:10) {#if cell[iy] == '15'}
     function create_if_block$1(ctx) {
     	let td;
     	let scoreboard;
@@ -1758,7 +1758,7 @@ var app = (function () {
     			td = element("td");
     			create_component(scoreboard.$$.fragment);
     			attr_dev(td, "class", "none");
-    			add_location(td, file$1, 178, 12, 6149);
+    			add_location(td, file$1, 181, 12, 6466);
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, td, anchor);
@@ -1785,14 +1785,14 @@ var app = (function () {
     		block,
     		id: create_if_block$1.name,
     		type: "if",
-    		source: "(178:10) {#if cell[iy] == '15'}",
+    		source: "(181:10) {#if cell[iy] == '15'}",
     		ctx
     	});
 
     	return block;
     }
 
-    // (193:16) {#each pawnsOf.filter(t => t.loc===cell[iy] &&                      (                       (type(t.loc) === "safe") ? ix === ( (i===0) ? 0 : 2 ) : true                      )                   ) as pawn, iP}
+    // (196:16) {#each pawnsOf.filter(t => t.loc===cell[iy] &&                      (                       (type(t.loc) === "safe") ? ix === ( (i===0) ? 0 : 2 ) : true                      )                   ) as pawn, iP}
     function create_each_block_4(ctx) {
     	let div;
     	let t_value = /*pawn*/ ctx[20].id + "";
@@ -1810,7 +1810,7 @@ var app = (function () {
     			attr_dev(div, "class", "pawn");
     			attr_dev(div, "data-owner", div_data_owner_value = /*pawn*/ ctx[20].p);
     			attr_dev(div, "data-pawnname", div_data_pawnname_value = /*pawn*/ ctx[20].id);
-    			add_location(div, file$1, 197, 14, 6883);
+    			add_location(div, file$1, 200, 14, 7200);
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, div, anchor);
@@ -1854,14 +1854,14 @@ var app = (function () {
     		block,
     		id: create_each_block_4.name,
     		type: "each",
-    		source: "(193:16) {#each pawnsOf.filter(t => t.loc===cell[iy] &&                      (                       (type(t.loc) === \\\"safe\\\") ? ix === ( (i===0) ? 0 : 2 ) : true                      )                   ) as pawn, iP}",
+    		source: "(196:16) {#each pawnsOf.filter(t => t.loc===cell[iy] &&                      (                       (type(t.loc) === \\\"safe\\\") ? ix === ( (i===0) ? 0 : 2 ) : true                      )                   ) as pawn, iP}",
     		ctx
     	});
 
     	return block;
     }
 
-    // (192:14) {#each $pawns as pawnsOf, i}
+    // (195:14) {#each $pawns as pawnsOf, i}
     function create_each_block_3(ctx) {
     	let each_1_anchor;
     	let current;
@@ -1957,14 +1957,14 @@ var app = (function () {
     		block,
     		id: create_each_block_3.name,
     		type: "each",
-    		source: "(192:14) {#each $pawns as pawnsOf, i}",
+    		source: "(195:14) {#each $pawns as pawnsOf, i}",
     		ctx
     	});
 
     	return block;
     }
 
-    // (177:8) {#each $board[0].col as cell, ix}
+    // (180:8) {#each $board[0].col as cell, ix}
     function create_each_block_2(ctx) {
     	let current_block_type_index;
     	let if_block;
@@ -2036,14 +2036,14 @@ var app = (function () {
     		block,
     		id: create_each_block_2.name,
     		type: "each",
-    		source: "(177:8) {#each $board[0].col as cell, ix}",
+    		source: "(180:8) {#each $board[0].col as cell, ix}",
     		ctx
     	});
 
     	return block;
     }
 
-    // (175:4) {#each $board[0].col[0] as row, iy}
+    // (178:4) {#each $board[0].col[0] as row, iy}
     function create_each_block_1(ctx) {
     	let tr;
     	let t;
@@ -2069,7 +2069,7 @@ var app = (function () {
     			}
 
     			t = space();
-    			add_location(tr, file$1, 175, 6, 6057);
+    			add_location(tr, file$1, 178, 6, 6374);
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, tr, anchor);
@@ -2138,14 +2138,14 @@ var app = (function () {
     		block,
     		id: create_each_block_1.name,
     		type: "each",
-    		source: "(175:4) {#each $board[0].col[0] as row, iy}",
+    		source: "(178:4) {#each $board[0].col[0] as row, iy}",
     		ctx
     	});
 
     	return block;
     }
 
-    // (217:4) {#each $pawns[1].filter(t => t.loc===0) as pawn (pawn.id)}
+    // (220:4) {#each $pawns[1].filter(t => t.loc===0) as pawn (pawn.id)}
     function create_each_block(key_1, ctx) {
     	let div;
     	let t0_value = /*pawn*/ ctx[20].id + "";
@@ -2169,7 +2169,7 @@ var app = (function () {
     			attr_dev(div, "class", "pawn");
     			attr_dev(div, "data-owner", div_data_owner_value = /*pawn*/ ctx[20].p);
     			attr_dev(div, "data-pawnname", div_data_pawnname_value = /*pawn*/ ctx[20].id);
-    			add_location(div, file$1, 218, 4, 7441);
+    			add_location(div, file$1, 221, 4, 7758);
     			this.first = div;
     		},
     		m: function mount(target, anchor) {
@@ -2227,7 +2227,7 @@ var app = (function () {
     		block,
     		id: create_each_block.name,
     		type: "each",
-    		source: "(217:4) {#each $pawns[1].filter(t => t.loc===0) as pawn (pawn.id)}",
+    		source: "(220:4) {#each $pawns[1].filter(t => t.loc===0) as pawn (pawn.id)}",
     		ctx
     	});
 
@@ -2306,12 +2306,12 @@ var app = (function () {
     			}
 
     			attr_dev(div0, "class", "pawns pawns1");
-    			add_location(div0, file$1, 161, 2, 5616);
-    			add_location(table, file$1, 172, 2, 6002);
+    			add_location(div0, file$1, 164, 2, 5933);
+    			add_location(table, file$1, 175, 2, 6319);
     			attr_dev(div1, "class", "pawns pawns2");
-    			add_location(div1, file$1, 213, 2, 7254);
+    			add_location(div1, file$1, 216, 2, 7571);
     			attr_dev(div2, "class", "board");
-    			add_location(div2, file$1, 160, 0, 5594);
+    			add_location(div2, file$1, 163, 0, 5911);
     		},
     		l: function claim(nodes) {
     			throw new Error("options.hydrate only works if the component was compiled with the `hydratable: true` option");
@@ -2525,9 +2525,9 @@ var app = (function () {
     		return $gameState.rolled == 1 && $gameState.played == 0 && currentPlayer == owner;
     	};
 
-    	let nextTurn = function () {
+    	let nextTurn = function (doubledice = false) {
     		set_store_value(gameState, $gameState = {
-    			turn: ($gameState.turn + 1) % 2,
+    			turn: ($gameState.turn + (doubledice ? 0 : 1)) % 2,
     			rolled: 0,
     			played: 0,
     			round: $gameState.round + 1,
@@ -2607,15 +2607,19 @@ var app = (function () {
     			// ############## I CAN MOVE FREELY  ##############
     			if (!found && !foundOwn && !foundOpponentBool && canMoveBool) {
     				console.log("MOVING PAWN");
-    				set_store_value(gameState, $gameState.status += `\nPlayer <em>${currentPlayer}</em>'s Pawn #<em>${pawnObj.id}</em> moving to square <em>${orderToGo}</em>`, $gameState);
+    				set_store_value(gameState, $gameState.status += `\nPlayer <em data-player="${currentPlayer}">${currentPlayer}</em>'s Pawn #<em data-player="${currentPlayer}">${pawnObj.id}</em> moving to square <em>${orderToGo}</em>`, $gameState);
 
     				if (orderToGo === 8) {
     					set_store_value(gameState, $gameState.status += `\nPawn is now <em>Untouchable</em>!`, $gameState);
     				}
 
+    				if (orderToGo === 8 || orderToGo === 4) {
+    					set_store_value(gameState, $gameState.status += `\n<em data-player="${currentPlayer}">${currentPlayer} gets to play again!</em>`, $gameState);
+    				}
+
     				set_store_value(pawns, $pawns[ownerID][index].loc = orderToGo, $pawns);
     				set_store_value(gameState, $gameState.played = 1, $gameState);
-    				nextTurn();
+    				nextTurn(orderToGo === 8 || orderToGo === 4 ? true : false);
     			} else if (foundOpponentBool) {
     				if (orderToGo === 8) {
     					set_store_value(
@@ -3048,7 +3052,55 @@ Try another move!`,
     const { console: console_1$2 } = globals;
     const file$3 = "src/Dice.svelte";
 
-    // (118:2) {#if (!Boolean($gameState.played) && Boolean($gameState.rolled))}
+    // (117:2) {#if ($gameState.rolled)}
+    function create_if_block_2(ctx) {
+    	let dices;
+    	let current;
+
+    	dices = new Dices({
+    			props: { dicesArr: /*$gameState*/ ctx[2].dicesArr },
+    			$$inline: true
+    		});
+
+    	const block = {
+    		c: function create() {
+    			create_component(dices.$$.fragment);
+    		},
+    		m: function mount(target, anchor) {
+    			mount_component(dices, target, anchor);
+    			current = true;
+    		},
+    		p: function update(ctx, dirty) {
+    			const dices_changes = {};
+    			if (dirty & /*$gameState*/ 4) dices_changes.dicesArr = /*$gameState*/ ctx[2].dicesArr;
+    			dices.$set(dices_changes);
+    		},
+    		i: function intro(local) {
+    			if (current) return;
+    			transition_in(dices.$$.fragment, local);
+    			current = true;
+    		},
+    		o: function outro(local) {
+    			transition_out(dices.$$.fragment, local);
+    			current = false;
+    		},
+    		d: function destroy(detaching) {
+    			destroy_component(dices, detaching);
+    		}
+    	};
+
+    	dispatch_dev("SvelteRegisterBlock", {
+    		block,
+    		id: create_if_block_2.name,
+    		type: "if",
+    		source: "(117:2) {#if ($gameState.rolled)}",
+    		ctx
+    	});
+
+    	return block;
+    }
+
+    // (120:2) {#if (!Boolean($gameState.played) && Boolean($gameState.rolled))}
     function create_if_block_1$1(ctx) {
     	let pre;
     	let t0;
@@ -3064,8 +3116,8 @@ Try another move!`,
     			em = element("em");
     			t1 = text(t1_value);
     			t2 = text("!");
-    			add_location(em, file$3, 117, 79, 3252);
-    			add_location(pre, file$3, 117, 67, 3240);
+    			add_location(em, file$3, 119, 79, 3424);
+    			add_location(pre, file$3, 119, 67, 3412);
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, pre, anchor);
@@ -3086,14 +3138,14 @@ Try another move!`,
     		block,
     		id: create_if_block_1$1.name,
     		type: "if",
-    		source: "(118:2) {#if (!Boolean($gameState.played) && Boolean($gameState.rolled))}",
+    		source: "(120:2) {#if (!Boolean($gameState.played) && Boolean($gameState.rolled))}",
     		ctx
     	});
 
     	return block;
     }
 
-    // (123:2) {:else}
+    // (125:2) {:else}
     function create_else_block$1(ctx) {
     	let button0;
     	let t1;
@@ -3108,8 +3160,8 @@ Try another move!`,
     			t1 = space();
     			button1 = element("button");
     			button1.textContent = "PASS";
-    			add_location(button0, file$3, 123, 2, 3402);
-    			add_location(button1, file$3, 124, 2, 3442);
+    			add_location(button0, file$3, 125, 2, 3574);
+    			add_location(button1, file$3, 126, 2, 3614);
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, button0, anchor);
@@ -3150,14 +3202,14 @@ Try another move!`,
     		block,
     		id: create_else_block$1.name,
     		type: "else",
-    		source: "(123:2) {:else}",
+    		source: "(125:2) {:else}",
     		ctx
     	});
 
     	return block;
     }
 
-    // (121:2) {#if $game.won}
+    // (123:2) {#if $game.won}
     function create_if_block$2(ctx) {
     	let button;
     	let mounted;
@@ -3167,7 +3219,7 @@ Try another move!`,
     		c: function create() {
     			button = element("button");
     			button.textContent = "RESTART";
-    			add_location(button, file$3, 121, 2, 3346);
+    			add_location(button, file$3, 123, 2, 3518);
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, button, anchor);
@@ -3189,7 +3241,7 @@ Try another move!`,
     		block,
     		id: create_if_block$2.name,
     		type: "if",
-    		source: "(121:2) {#if $game.won}",
+    		source: "(123:2) {#if $game.won}",
     		ctx
     	});
 
@@ -3207,37 +3259,25 @@ Try another move!`,
     	let em1;
     	let t3;
     	let t4;
+    	let t5;
     	let html_tag;
 
     	let raw0_value = (!!/*$gameState*/ ctx[2].rolled
-    	? `<em>Player ${/*currentPlayer*/ ctx[1]}</em> rolled the Dices`
-    	: `<em>Player ${/*currentPlayer*/ ctx[1]}</em> haven't rolled yet.`) + "";
-
-    	let t5;
-    	let html_tag_1;
-
-    	let raw1_value = (!/*$gameState*/ ctx[2].played && !!/*$gameState*/ ctx[2].rolled
-    	? `Waiting for <em>Player ${/*currentPlayer*/ ctx[1]}</em> to play`
-    	: ``) + "";
+    	? `<em data-player="${/*currentPlayer*/ ctx[1]}">Player ${/*currentPlayer*/ ctx[1]}</em> rolled the Dices`
+    	: `<em data-player="${/*currentPlayer*/ ctx[1]}">Player ${/*currentPlayer*/ ctx[1]}</em> hasn't rolled yet.`) + "";
 
     	let t6;
-    	let html_tag_2;
-    	let raw2_value = /*$gameState*/ ctx[2].status + "";
+    	let html_tag_1;
+    	let raw1_value = /*$gameState*/ ctx[2].status + "";
     	let t7;
     	let div1;
-    	let dices;
     	let t8;
     	let show_if = !Boolean(/*$gameState*/ ctx[2].played) && Boolean(/*$gameState*/ ctx[2].rolled);
     	let t9;
     	let div2;
     	let current;
-
-    	dices = new Dices({
-    			props: { dicesArr: /*$gameState*/ ctx[2].dicesArr },
-    			$$inline: true
-    		});
-
-    	let if_block0 = show_if && create_if_block_1$1(ctx);
+    	let if_block0 = /*$gameState*/ ctx[2].rolled && create_if_block_2(ctx);
+    	let if_block1 = show_if && create_if_block_1$1(ctx);
 
     	function select_block_type(ctx, dirty) {
     		if (/*$game*/ ctx[3].won) return create_if_block$2;
@@ -3245,7 +3285,7 @@ Try another move!`,
     	}
 
     	let current_block_type = select_block_type(ctx);
-    	let if_block1 = current_block_type(ctx);
+    	let if_block2 = current_block_type(ctx);
 
     	const block = {
     		c: function create() {
@@ -3254,32 +3294,32 @@ Try another move!`,
     			t0 = text("Round: ");
     			em0 = element("em");
     			t1 = text(t1_value);
-    			t2 = text("\nit's Player ");
+    			t2 = text("\nit's ");
     			em1 = element("em");
-    			t3 = text(/*currentPlayer*/ ctx[1]);
-    			t4 = text("'s turn\n\n");
-    			t5 = text("\n");
+    			t3 = text("Player ");
+    			t4 = text(/*currentPlayer*/ ctx[1]);
+    			t5 = text("'s turn\n\n");
     			t6 = text("\n\n");
     			t7 = space();
     			div1 = element("div");
-    			create_component(dices.$$.fragment);
-    			t8 = space();
     			if (if_block0) if_block0.c();
+    			t8 = space();
+    			if (if_block1) if_block1.c();
     			t9 = space();
     			div2 = element("div");
-    			if_block1.c();
-    			add_location(em0, file$3, 104, 7, 2554);
-    			add_location(em1, file$3, 105, 12, 2594);
-    			html_tag = new HtmlTag(t5);
-    			html_tag_1 = new HtmlTag(t6);
-    			html_tag_2 = new HtmlTag(null);
-    			add_location(pre, file$3, 103, 2, 2541);
+    			if_block2.c();
+    			add_location(em0, file$3, 106, 7, 2596);
+    			attr_dev(em1, "data-player", /*currentPlayer*/ ctx[1]);
+    			add_location(em1, file$3, 107, 5, 2629);
+    			html_tag = new HtmlTag(t6);
+    			html_tag_1 = new HtmlTag(null);
+    			add_location(pre, file$3, 105, 2, 2583);
     			attr_dev(div0, "class", "status");
-    			add_location(div0, file$3, 102, 0, 2518);
+    			add_location(div0, file$3, 104, 0, 2560);
     			attr_dev(div1, "class", "dices");
-    			add_location(div1, file$3, 114, 0, 3105);
+    			add_location(div1, file$3, 115, 0, 3244);
     			attr_dev(div2, "class", "command");
-    			add_location(div2, file$3, 119, 0, 3304);
+    			add_location(div2, file$3, 121, 0, 3476);
     		},
     		l: function claim(nodes) {
     			throw new Error("options.hydrate only works if the component was compiled with the `hydratable: true` option");
@@ -3293,83 +3333,103 @@ Try another move!`,
     			append_dev(pre, t2);
     			append_dev(pre, em1);
     			append_dev(em1, t3);
-    			append_dev(pre, t4);
-    			html_tag.m(raw0_value, pre);
+    			append_dev(em1, t4);
     			append_dev(pre, t5);
-    			html_tag_1.m(raw1_value, pre);
+    			html_tag.m(raw0_value, pre);
     			append_dev(pre, t6);
-    			html_tag_2.m(raw2_value, pre);
+    			html_tag_1.m(raw1_value, pre);
     			insert_dev(target, t7, anchor);
     			insert_dev(target, div1, anchor);
-    			mount_component(dices, div1, null);
-    			append_dev(div1, t8);
     			if (if_block0) if_block0.m(div1, null);
+    			append_dev(div1, t8);
+    			if (if_block1) if_block1.m(div1, null);
     			insert_dev(target, t9, anchor);
     			insert_dev(target, div2, anchor);
-    			if_block1.m(div2, null);
+    			if_block2.m(div2, null);
     			current = true;
     		},
     		p: function update(ctx, [dirty]) {
     			if ((!current || dirty & /*$gameState*/ 4) && t1_value !== (t1_value = /*$gameState*/ ctx[2].round + "")) set_data_dev(t1, t1_value);
-    			if (!current || dirty & /*currentPlayer*/ 2) set_data_dev(t3, /*currentPlayer*/ ctx[1]);
+    			if (!current || dirty & /*currentPlayer*/ 2) set_data_dev(t4, /*currentPlayer*/ ctx[1]);
+
+    			if (!current || dirty & /*currentPlayer*/ 2) {
+    				attr_dev(em1, "data-player", /*currentPlayer*/ ctx[1]);
+    			}
 
     			if ((!current || dirty & /*$gameState, currentPlayer*/ 6) && raw0_value !== (raw0_value = (!!/*$gameState*/ ctx[2].rolled
-    			? `<em>Player ${/*currentPlayer*/ ctx[1]}</em> rolled the Dices`
-    			: `<em>Player ${/*currentPlayer*/ ctx[1]}</em> haven't rolled yet.`) + "")) html_tag.p(raw0_value);
+    			? `<em data-player="${/*currentPlayer*/ ctx[1]}">Player ${/*currentPlayer*/ ctx[1]}</em> rolled the Dices`
+    			: `<em data-player="${/*currentPlayer*/ ctx[1]}">Player ${/*currentPlayer*/ ctx[1]}</em> hasn't rolled yet.`) + "")) html_tag.p(raw0_value);
 
-    			if ((!current || dirty & /*$gameState, currentPlayer*/ 6) && raw1_value !== (raw1_value = (!/*$gameState*/ ctx[2].played && !!/*$gameState*/ ctx[2].rolled
-    			? `Waiting for <em>Player ${/*currentPlayer*/ ctx[1]}</em> to play`
-    			: ``) + "")) html_tag_1.p(raw1_value);
+    			if ((!current || dirty & /*$gameState*/ 4) && raw1_value !== (raw1_value = /*$gameState*/ ctx[2].status + "")) html_tag_1.p(raw1_value);
 
-    			if ((!current || dirty & /*$gameState*/ 4) && raw2_value !== (raw2_value = /*$gameState*/ ctx[2].status + "")) html_tag_2.p(raw2_value);
-    			const dices_changes = {};
-    			if (dirty & /*$gameState*/ 4) dices_changes.dicesArr = /*$gameState*/ ctx[2].dicesArr;
-    			dices.$set(dices_changes);
+    			if (/*$gameState*/ ctx[2].rolled) {
+    				if (if_block0) {
+    					if_block0.p(ctx, dirty);
+
+    					if (dirty & /*$gameState*/ 4) {
+    						transition_in(if_block0, 1);
+    					}
+    				} else {
+    					if_block0 = create_if_block_2(ctx);
+    					if_block0.c();
+    					transition_in(if_block0, 1);
+    					if_block0.m(div1, t8);
+    				}
+    			} else if (if_block0) {
+    				group_outros();
+
+    				transition_out(if_block0, 1, 1, () => {
+    					if_block0 = null;
+    				});
+
+    				check_outros();
+    			}
+
     			if (dirty & /*$gameState*/ 4) show_if = !Boolean(/*$gameState*/ ctx[2].played) && Boolean(/*$gameState*/ ctx[2].rolled);
 
     			if (show_if) {
-    				if (if_block0) {
-    					if_block0.p(ctx, dirty);
+    				if (if_block1) {
+    					if_block1.p(ctx, dirty);
     				} else {
-    					if_block0 = create_if_block_1$1(ctx);
-    					if_block0.c();
-    					if_block0.m(div1, null);
+    					if_block1 = create_if_block_1$1(ctx);
+    					if_block1.c();
+    					if_block1.m(div1, null);
     				}
-    			} else if (if_block0) {
-    				if_block0.d(1);
-    				if_block0 = null;
+    			} else if (if_block1) {
+    				if_block1.d(1);
+    				if_block1 = null;
     			}
 
-    			if (current_block_type === (current_block_type = select_block_type(ctx)) && if_block1) {
-    				if_block1.p(ctx, dirty);
+    			if (current_block_type === (current_block_type = select_block_type(ctx)) && if_block2) {
+    				if_block2.p(ctx, dirty);
     			} else {
-    				if_block1.d(1);
-    				if_block1 = current_block_type(ctx);
+    				if_block2.d(1);
+    				if_block2 = current_block_type(ctx);
 
-    				if (if_block1) {
-    					if_block1.c();
-    					if_block1.m(div2, null);
+    				if (if_block2) {
+    					if_block2.c();
+    					if_block2.m(div2, null);
     				}
     			}
     		},
     		i: function intro(local) {
     			if (current) return;
-    			transition_in(dices.$$.fragment, local);
+    			transition_in(if_block0);
     			current = true;
     		},
     		o: function outro(local) {
-    			transition_out(dices.$$.fragment, local);
+    			transition_out(if_block0);
     			current = false;
     		},
     		d: function destroy(detaching) {
     			if (detaching) detach_dev(div0);
     			if (detaching) detach_dev(t7);
     			if (detaching) detach_dev(div1);
-    			destroy_component(dices);
     			if (if_block0) if_block0.d();
+    			if (if_block1) if_block1.d();
     			if (detaching) detach_dev(t9);
     			if (detaching) detach_dev(div2);
-    			if_block1.d();
+    			if_block2.d();
     		}
     	};
 
@@ -3442,9 +3502,11 @@ Try another move!`,
 
     		set_store_value(gameState, $gameState = {
     			round: 1,
-    			turn: 0,
+    			turn: $game.won % 2,
     			status: "",
-    			dicesArr: [0, 0, 0, 0]
+    			dicesArr: [0, 0, 0, 0],
+    			played: 0,
+    			rolled: 0
     		});
 
     		set_store_value(game, $game = { points: [], won: null });
@@ -3586,10 +3648,8 @@ Try another move!`,
 
     function create_fragment$5(ctx) {
     	let main;
-    	let p;
-    	let t0;
     	let board_1;
-    	let t1;
+    	let t;
     	let dice;
     	let current;
     	board_1 = new Board({ $$inline: true });
@@ -3598,24 +3658,18 @@ Try another move!`,
     	const block = {
     		c: function create() {
     			main = element("main");
-    			p = element("p");
-    			t0 = space();
     			create_component(board_1.$$.fragment);
-    			t1 = space();
+    			t = space();
     			create_component(dice.$$.fragment);
-    			add_location(p, file$4, 38, 2, 641);
-    			attr_dev(main, "class", "svelte-1fjybpv");
-    			add_location(main, file$4, 36, 0, 631);
+    			add_location(main, file$4, 14, 0, 342);
     		},
     		l: function claim(nodes) {
     			throw new Error("options.hydrate only works if the component was compiled with the `hydratable: true` option");
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, main, anchor);
-    			append_dev(main, p);
-    			append_dev(main, t0);
     			mount_component(board_1, main, null);
-    			append_dev(main, t1);
+    			append_dev(main, t);
     			mount_component(dice, main, null);
     			current = true;
     		},

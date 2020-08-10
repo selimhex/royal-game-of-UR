@@ -49,9 +49,11 @@
   ];
   $gameState =   {
     round: 1,
-    turn: 0,
+    turn: ($game.won)%2,
     status: "",
-    dicesArr: [0,0,0,0]
+    dicesArr: [0,0,0,0],
+    played: 0,
+    rolled: 0
   };
   $game =  {
     points: [],
@@ -103,18 +105,18 @@
 <div class="status">
   <pre>
 Round: <em>{$gameState.round}</em>
-it's Player <em>{currentPlayer}</em>'s turn<!--$gameState.turn: <em>{$gameState.turn}</em>-->
+it's <em data-player="{currentPlayer}">Player {currentPlayer}</em>'s turn<!--$gameState.turn: <em>{$gameState.turn}</em>-->
 <!--dices rolled: <em>{String(!!($gameState.rolled))}</em> & player played: <em>{String(!!($gameState.played))}</em>-->
-{@html ((!!($gameState.rolled))) ? `<em>Player ${currentPlayer}</em> rolled the Dices` : `<em>Player ${currentPlayer}</em> haven't rolled yet.`}
-{@html ((!($gameState.played) && !!($gameState.rolled))) ? `Waiting for <em>Player ${currentPlayer}</em> to play` : ``}
-
+{@html ((!!($gameState.rolled))) ? `<em data-player="${currentPlayer}">Player ${currentPlayer}</em> rolled the Dices` : `<em data-player="${currentPlayer}">Player ${currentPlayer}</em> hasn't rolled yet.`}
+<!--{@html ((!($gameState.played) && !!($gameState.rolled))) ? `Waiting for <em>Player ${currentPlayer}</em> to play` : ``}-->
 {@html $gameState.status}
 
   </pre>
 </div>
 <div class="dices">
-  
+  {#if ($gameState.rolled)}
   <Dices dicesArr="{$gameState.dicesArr}" />
+  {/if}
   {#if (!Boolean($gameState.played) && Boolean($gameState.rolled))}<pre>it's a <em>{$gameState.diceToMove}</em>!</pre>{/if}
 </div>
 <div class="command">
