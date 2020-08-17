@@ -1,6 +1,5 @@
 <script>
   import Board from "./Board.svelte";
-  import Dice from "./Dice.svelte";
   import { gameState, pawns, board, game } from "./stores.js";
 
   //console.clear();
@@ -8,11 +7,13 @@
   $: console.log("pawns:",$pawns);
   //$: console.log("board:",$board);
   $: console.log("game",$game);
+  let Wiwi;
+  import { onMount } from 'svelte';
 
   // ??? board
 </script>
 
 <main>
   <Board />
-  <Dice />
+  
 </main>

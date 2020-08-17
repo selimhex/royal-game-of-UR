@@ -2,29 +2,35 @@
   import { gameState, board, pawns } from "./stores.js";
   import Pawn from "./Pawn.svelte";
   import ScoreBoard from "./ScoreBoard.svelte";
+  import Dice from "./Dice.svelte";
+  import Dices from "./Dices.svelte";
+  import DiceSVG from "./DiceSVG.svelte";
+  let Wiwi;
 
-  import { fade } from 'svelte/transition';
-	import { flip } from 'svelte/animate';
-  import { quintOut } from 'svelte/easing';
-	import { crossfade } from 'svelte/transition';
+  import { fade } from "svelte/transition";
+  import { flip } from "svelte/animate";
+  import { quintOut } from "svelte/easing";
+  import { crossfade } from "svelte/transition";
+  import { onMount } from 'svelte';
 
-	const [send, receive] = crossfade({
-		duration: d => Math.sqrt(d * 200),
 
-		fallback(node, params) {
-			const style = getComputedStyle(node);
-			const transform = style.transform === 'none' ? '' : style.transform;
+  const [send, receive] = crossfade({
+    duration: (d) => Math.sqrt(d * 200),
 
-			return {
-				duration: 600,
-				easing: quintOut,
-				css: t => `
+    fallback(node, params) {
+      const style = getComputedStyle(node);
+      const transform = style.transform === "none" ? "" : style.transform;
+
+      return {
+        duration: 600,
+        easing: quintOut,
+        css: (t) => `
 					transform: ${transform} scale(${t});
 					opacity: ${t}
-				`
-			};
-		}
-	});
+				`,
+      };
+    },
+  });
 
   let content;
   $: currentPlayer = $gameState.turn + 1;
@@ -41,7 +47,7 @@
   };
 
   let tdclass = function (c) {
-    return (c === 8 || c === 4) ? "special" : "";
+    return c === 8 || c === 4 ? "special" : "";
   };
 
   let spotPawn = function (celliy) {
@@ -53,14 +59,14 @@
       $gameState.rolled == 1 && $gameState.played == 0 && currentPlayer == owner
     );
   };
-  let nextTurn = function (doubledice=false) {
+  let nextTurn = function (doubledice = false) {
     $gameState = {
-      turn: ($gameState.turn + (doubledice? 0 : 1)) % 2,
+      turn: ($gameState.turn + (doubledice ? 0 : 1)) % 2,
       rolled: 0,
       played: 0,
       round: $gameState.round + 1,
       status: $gameState.status + "\n...next turn...",
-      dicesArr: [0,0,0,0]
+      dicesArr: [0, 0, 0, 0],
     };
     console.log("NEXT TURN");
   };
@@ -70,7 +76,9 @@
 
   let move = function (owner, id, thisPawn) {
     let ownerID = owner - 1;
-    console.log(mayItPlay(owner)? `${owner} may play` : `${owner} may not play`);
+    console.log(
+      mayItPlay(owner) ? `${owner} may play` : `${owner} may not play`
+    );
     if (mayItPlay(owner)) {
       let col;
       // ###### FIX findIndex -> find ?!?!?!??! ####
@@ -138,7 +146,7 @@
         }
         $pawns[ownerID][index].loc = orderToGo;
         $gameState.played = 1;
-        nextTurn((orderToGo === 8 || orderToGo === 4)? true:false);
+        nextTurn(orderToGo === 8 || orderToGo === 4 ? true : false);
       } else if (foundOpponentBool) {
         if (orderToGo === 8) {
           $gameState.status += `\nPlayer <em>${foundOpponent.p}</em>'s Pawn #<em>${foundOpponent.id}</em> is Safe!
@@ -154,23 +162,84 @@ Try another move!`;
       }
     } else {
       //console.log(mayItPlay(owner)? `${owner} may play` : `${owner} may not play`);
-      $gameState.status += (owner !== undefined) ? `\nit's not Player <em>${owner}</em>'s turn!.` : `\nno pawns there!`
+      $gameState.status +=
+        owner !== undefined
+          ? `\nit's not Player <em>${owner}</em>'s turn!.`
+          : `\nno pawns there!`;
       //$gameState.status += `\nit's not your turn!.`;
       //console.log(`it's not your turn!.`);
     }
   };
+
+  function getOffset(el) {
+  const rect = el.getBoundingClientRect();
+  return {
+    left: rect.left + window.scrollX,
+    top: rect.top + window.scrollY
+  };
+  }
+  
+  let mounted=false;
+  onMount(()=>{mounted = true;}
+  );
+  let activeDeck;
+  let deckPos;
+  deckPos = {top: null,left:null,width:null, height: null}
+  $: activeDeck = document.querySelector(`.deck${$gameState.turn+1} .tetra-dices`);
+  $: (deckPos)? deckPos.left : {} = ( (activeDeck) ? getOffset(activeDeck).left: undefined);
+  $: (deckPos)? deckPos.top : {} = ( (activeDeck) ? getOffset(activeDeck).top: undefined);
+  //$: console.log("deckPos",deckPos);
+  let positionDices = function(e){
+    //console.log("left", getOffset(e).left);
+    //console.log("top", getOffset(e).top);
+  }
+  $: if (mounted) {
+  }
+  
+ let sX, sY, iW, iH;
+  $: {iW || iH, 
+    deckPos.left = ( (activeDeck) ? getOffset(activeDeck).left: {});
+    deckPos.top = ( (activeDeck) ? getOffset(activeDeck).top: {});
+  }
+  
+  let t1height, t1width;
+  $: {deckPos.width=t1width; deckPos.height=t1height};
+  let boardDiv;
+  $: {$gameState.rolled,  
+    {if (boardDiv) {
+    console.log (boardDiv);
+    }}
+
+  }
+      
+  //$: {console.log(boardDiv.classList)}
 </script>
 
-<div class="board">
-  <div
-    class="pawns pawns1"
-    on:click={(e) => move(e.target.dataset.owner, e.target.dataset.pawnname, e.target)}>
-    {#each $pawns[0].filter(t => t.loc===0) as pawn (pawn.id)}
-
-        <div class="pawn" data-owner={pawn.p} data-pawnname={pawn.id} in:receive="{{key: pawn.key}}" out:send="{{key: pawn.key}}" animate:flip>
+<div class="board" class:fadeAlittle={($gameState.rolled===1)} bind:this={boardDiv}>
+  <div class="ghostlayer" class:ghVisible={($gameState.rolled===1)}>
+    <Dices dicesArr={$gameState.dicesArr} moveToDeck={false} rolled={$gameState.rolled} turn={$gameState.turn} />
+  </div>
+  <div class="deck deck1">
+    <div
+      class="pawns pawns1"
+      on:click={(e) => move(e.target.dataset.owner, e.target.dataset.pawnname, e.target)}>
+      {#each $pawns[0].filter((t) => t.loc === 0) as pawn (pawn.id)}
+        <div
+          class="pawn"
+          data-owner={pawn.p}
+          data-pawnname={pawn.id}
+          in:receive={{ key: pawn.key }}
+          out:send={{ key: pawn.key }}
+          animate:flip>
           {pawn.id}
         </div>
-    {/each}
+      {/each}
+
+    </div>
+    <div class="tetra-dices" class:active={($gameState.turn===0)} bind:offsetWidth={t1width}
+    bind:offsetHeight={t1height}>
+      
+    </div>
 
   </div>
   <table>
@@ -180,7 +249,7 @@ Try another move!`;
         {#each $board[0].col as cell, ix}
           {#if cell[iy] == '15'}
             <td class="none">
-              <ScoreBoard col={ix}/>
+              <ScoreBoard col={ix} />
             </td>
           {:else if cell[iy] == '0'}
             <td class="none" />
@@ -193,36 +262,49 @@ Try another move!`;
               class={tdclass(cell[iy])}
               on:click={(e) => move(e.target.dataset.owner, e.target.dataset.pawnname, e.target)}>
               {#each $pawns as pawnsOf, i}
-                {#each pawnsOf.filter(t => t.loc===cell[iy] && 
-                    (
-                      (type(t.loc) === "safe") ? ix === ( (i===0) ? 0 : 2 ) : true 
-                    )
-                  ) as pawn, iP}
-              <div class="pawn" data-owner={pawn.p} data-pawnname={pawn.id} in:receive="{{key: pawn.key}}"
-              out:send="{{key: pawn.key}}"
-              >
-                {pawn.id}
-              </div>
+                {#each pawnsOf.filter((t) => t.loc === cell[iy] && (type(t.loc) === 'safe' ? ix === (i === 0 ? 0 : 2) : true)) as pawn, iP}
+                  <div
+                    class="pawn"
+                    data-owner={pawn.p}
+                    data-pawnname={pawn.id}
+                    in:receive={{ key: pawn.key }}
+                    out:send={{ key: pawn.key }}>
+                    {pawn.id}
+                  </div>
                 {/each}
               {/each}
-              {cell[iy]}
+              <!--{cell[iy]}-->
             </td>
-            
           {/if}
         {/each}
       </tr>
     {/each}
 
   </table>
-  <div
-    class="pawns pawns2"
-    on:click={(e) => move(e.target.dataset.owner, e.target.dataset.pawnname, e.target)}>
-    {#each $pawns[1].filter(t => t.loc===0) as pawn (pawn.id)}
-
-    <div class="pawn" data-owner={pawn.p} data-pawnname={pawn.id} in:receive="{{key: pawn.key}}"
-    out:send="{{key: pawn.key}}" animate:flip>
-      {pawn.id}
+  <div class="deck deck2">
+    <div
+      class="pawns pawns2"
+      on:click={(e) => move(e.target.dataset.owner, e.target.dataset.pawnname, e.target)}>
+      {#each $pawns[1].filter((t) => t.loc === 0) as pawn (pawn.id)}
+        <div
+          class="pawn"
+          data-owner={pawn.p}
+          data-pawnname={pawn.id}
+          in:receive={{ key: pawn.key }}
+          out:send={{ key: pawn.key }}
+          animate:flip>
+          {pawn.id}
+        </div>
+      {/each}
     </div>
-    {/each}
+    <div class="tetra-dices" class:active={($gameState.turn===1)} >
+      
+    </div>
+
   </div>
 </div>
+
+<Dice bind:this={Wiwi}/>
+
+<Dices dicesArr={$gameState.dicesArr} moveToDeck={true} rolled={$gameState.rolled} turn={$gameState.turn} pos={deckPos} on:click={Wiwi.roll}/>
+<svelte:window bind:scrollY={sY} bind:scrollX={sX} bind:innerWidth={iW} bind:innerHeight={iH} />

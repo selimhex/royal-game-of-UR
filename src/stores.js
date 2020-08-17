@@ -4,6 +4,7 @@ export let gameState = writable(
   {
     round: 1,
     turn: 0,
+    rolled: 0,
     status: "",
     dicesArr: [0,0,0,0]
   }
