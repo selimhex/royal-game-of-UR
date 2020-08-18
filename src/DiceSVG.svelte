@@ -1,6 +1,6 @@
 <script>
   export let rolledNum = 0;
-  export let key = null;
+  //export let key = null;
 </script>
 
 <svg

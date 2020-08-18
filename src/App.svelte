@@ -7,7 +7,6 @@
   $: console.log("pawns:",$pawns);
   //$: console.log("board:",$board);
   $: console.log("game",$game);
-  let Wiwi;
   import { onMount } from 'svelte';
 
   // ??? board

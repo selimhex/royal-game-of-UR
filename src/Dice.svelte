@@ -75,7 +75,7 @@
     return $gameState.rolled == 0 && $gameState.played == 0;
   };
   export function roll () {
-    console.log($gameState.rolled, $gameState.played, canitRoll());
+    //console.log($gameState.rolled, $gameState.played, canitRoll());
     if (canitRoll()) {
       //roll
       $gameState.dicesArr = rollAll();
@@ -87,7 +87,9 @@
       $gameState.status = `\nPlayer <em>${currentPlayer}</em> just rolled: <em>${$gameState.diceToMove}</em>`;
       if ($gameState.diceToMove === 0) {
         //$gameState.status += "rolled a 0...";
+        setTimeout(() => {
         nextTurn();
+        }, 1000)
       }
     } else {
       $gameState.status += `\nDice is already rolled, you can not roll again.`;
@@ -126,5 +128,4 @@ it's <em data-player={currentPlayer}>Player {currentPlayer}</em>'s turn
     <button on:click={roll}>ROLL</button>
     <button on:click={nextTurn}>PASS</button>
   {/if}
-111
 </div>

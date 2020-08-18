@@ -25,7 +25,7 @@
 
   export let dicesArr = [0, 0, 0, 0];
   export let rolled = 0;
-  export let turn = null;
+  //export let turn = null;
   export let pos = { left: 0, top: 0, width: 0, height: 0 };
   export let moveToDeck;
   let style = "";
@@ -36,7 +36,7 @@
     {#each dicesArr as dice, i}
       <!--div class="die" class:rolled in:receive={{ key: i }}
   out:send={{ key: i }}-->
-      <DiceSVG rolledNum={dice} key={i} />
+      <DiceSVG rolledNum={dice}/>
       <!--/div-->
     {/each}
   </div>

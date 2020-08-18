@@ -1,5 +1,5 @@
 <script>
-  import { gameState, board, pawns } from "./stores.js";
+  import { gameState, board, pawns, game } from "./stores.js";
   import Pawn from "./Pawn.svelte";
   import ScoreBoard from "./ScoreBoard.svelte";
   import Dice from "./Dice.svelte";
@@ -32,7 +32,6 @@
     },
   });
 
-  let content;
   $: currentPlayer = $gameState.turn + 1;
   let residingPawn;
   const qS = (a) => {
@@ -50,10 +49,6 @@
     return c === 8 || c === 4 ? "special" : "";
   };
 
-  let spotPawn = function (celliy) {
-    return $pawns[0].find((e) => e.loc === celliy);
-  };
-
   let mayItPlay = function (owner) {
     return (
       $gameState.rolled == 1 && $gameState.played == 0 && currentPlayer == owner
@@ -68,6 +63,7 @@
       status: $gameState.status + "\n...next turn...",
       dicesArr: [0, 0, 0, 0],
     };
+    $gameState.turn = $gameState.turn;
     console.log("NEXT TURN");
   };
   function isEmpty(obj) {
@@ -171,6 +167,35 @@ Try another move!`;
     }
   };
 
+  let uniq = a => [...new Set(a)];
+
+  let hasMoves = function(player,diceToMove){
+    //console.log("player",player, "dicetomove",diceToMove);
+    let newset = $pawns[player].map((t)=>(t.loc + diceToMove)).filter((t)=>t<16);
+    let iCanGo2 = uniq(newset);
+    //console.log("IcanGo2",iCanGo2);
+    let safesIcanGo2 = iCanGo2.filter(t=>(type(t)==="safe"));
+
+    //console.log("safesIcanGo2",safesIcanGo2);
+    let ownpawnsOnBoard = uniq([...$pawns[player]].map(t=>t.loc).filter(t=>(0<t)&&(t<15)));
+    //console.log("ownpawnsOnBoard", ownpawnsOnBoard);
+    let opponentsSafePawn = uniq([...$pawns[(player+1)%2]].map(t=>t.loc).filter(t=>(t===8)));
+    //console.log("opponentsSafePawn",opponentsSafePawn);
+    let allPawnsInWarZone = uniq([...$pawns[0], ...$pawns[1]].map(t=>t.loc).filter(t=>(4<t)&&(t<13)));
+    //console.log("allPawnsInWarZone",allPawnsInWarZone);
+    let difference = iCanGo2.filter(x => !ownpawnsOnBoard.includes(x) && !opponentsSafePawn.includes(x));
+    //console.log("difference",difference);
+    //console.log(difference.length, (difference.length>0)?"has move":"no moves");
+    return ((difference.length>0)?true:false);
+    //newset = newset.some((e)=>( $pawns[player].filter((t)=>(t.loc !==e)) ));
+    /*console.log("üstüme basma", newset.filter((n)=>
+      $pawns[player].filter((t)=>(t.loc !==n)) 
+    ));
+    console.log(newset);*/
+    //filter((t)=>t.loc < 15).map((t)=>(t.loc + diceToMove)) 
+    //console.log($pawns[player].filter((t)=>t.loc < 15).map((t)=>(t.loc + diceToMove)).filter((t)=>t.loc < 15));    
+    
+  }
   function getOffset(el) {
   const rect = el.getBoundingClientRect();
   return {
@@ -205,19 +230,21 @@ Try another move!`;
   let t1height, t1width;
   $: {deckPos.width=t1width; deckPos.height=t1height};
   let boardDiv;
-  $: {$gameState.rolled,  
-    {if (boardDiv) {
-    console.log (boardDiv);
+  $: {if ($gameState.rolled===1) {
+    if (!hasMoves($gameState.turn,$gameState.diceToMove)) {
+      setTimeout(() => {
+        nextTurn();
+    }, 1000)
+      
+    }
     }}
-
-  }
       
   //$: {console.log(boardDiv.classList)}
 </script>
 
 <div class="board" class:fadeAlittle={($gameState.rolled===1)} bind:this={boardDiv}>
   <div class="ghostlayer" class:ghVisible={($gameState.rolled===1)}>
-    <Dices dicesArr={$gameState.dicesArr} moveToDeck={false} rolled={$gameState.rolled} turn={$gameState.turn} />
+    <Dices dicesArr={$gameState.dicesArr} moveToDeck={false} rolled={$gameState.rolled} />
   </div>
   <div class="deck deck1">
     <div
@@ -306,5 +333,5 @@ Try another move!`;
 
 <Dice bind:this={Wiwi}/>
 
-<Dices dicesArr={$gameState.dicesArr} moveToDeck={true} rolled={$gameState.rolled} turn={$gameState.turn} pos={deckPos} on:click={Wiwi.roll}/>
+{#if !($game.won)}<Dices dicesArr={$gameState.dicesArr} moveToDeck={true} rolled={$gameState.rolled} pos={deckPos} on:click={Wiwi.roll}/>{/if}
 <svelte:window bind:scrollY={sY} bind:scrollX={sX} bind:innerWidth={iW} bind:innerHeight={iH} />
