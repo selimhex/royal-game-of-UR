@@ -111,21 +111,8 @@ it's <em data-player={currentPlayer}>Player {currentPlayer}</em>'s turn
 
   </pre>
 </div>
-<div class="dices">
-  {#if $gameState.rolled}
-    <!--Dices dicesArr={$gameState.dicesArr} rolled={$gameState.rolled} /-->
-  {/if}
-  {#if !Boolean($gameState.played) && Boolean($gameState.rolled)}
-    <pre>
-      it's a <em>{$gameState.diceToMove}</em>!
-    </pre>
-  {/if}
-</div>
 <div class="command">
   {#if $game.won}
     <button on:click={restart}>RESTART</button>
-  {:else}
-    <button on:click={roll}>ROLL</button>
-    <button on:click={nextTurn}>PASS</button>
   {/if}
 </div>
