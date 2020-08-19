@@ -30,13 +30,14 @@
   export let moveToDeck;
   let style = "";
   $: style = (moveToDeck) ? `position: absolute; top: ${pos.top}px; left: ${pos.left}px; width: ${pos.width}px; height: ${pos.height}px;` : "";
+  
 </script>
 
   <div class="dicesBlock" class:rolled {style} on:click>
     {#each dicesArr as dice, i}
       <!--div class="die" class:rolled in:receive={{ key: i }}
   out:send={{ key: i }}-->
-      <DiceSVG rolledNum={dice}/>
+      <DiceSVG rolledNum={dice} rolled={rolled} />
       <!--/div-->
     {/each}
   </div>

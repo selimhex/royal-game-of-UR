@@ -1,6 +1,21 @@
 <script>
+  import { random } from "./lib/random.js";
+  let rnd = new random();
+  let randoTurnNum = () => { return rnd.int(-5, 5); };
+
   export let rolledNum = 0;
-  //export let key = null;
+  export let rolled = null;
+  let turnedAlready=0;
+  
+  let style;
+  $: if (rolled){
+    let turnRounds = randoTurnNum();
+    turnedAlready += turnRounds; 
+    style=`transform: rotate(calc(${turnedAlready} * 360deg));`;
+  } else {
+    style=`transform: rotate(calc(${turnedAlready} * 360deg));`;
+  }
+  
 </script>
 
 <svg
@@ -9,15 +24,15 @@
   viewBox="0 0 100 77"
   fill="none"
   xmlns="http://www.w3.org/2000/svg"
-  >
-  <g id="Dice-1-000">
-    <g id="black-dice">
-      <path id="Dice-tri" d="M50 0L93.3013 75H6.69873L50 0Z" fill="#0B0B0B" />
-      <g id="black-hi">
+   class="diceSvg" {style}>
+  <g class="Dice-1-000">
+    <g class="black-dice">
+      <path class="Dice-tri" d="M50 0L93.3013 75H6.69873L50 0Z" fill="#0B0B0B" />
+      <g class="black-hi">
         <path d="M50 0V50L6.69873 75L50 0Z" fill="black" />
         <path d="M50 0V50L6.69873 75L50 0Z" fill="url(#paint0_linear)" />
       </g>
-      <g id="black-low">
+      <g class="black-low">
         <path d="M50 0L93.3013 75L50 50V0Z" fill="#222222" />
         <path
           d="M50 0L93.3013 75L50 50V0Z"
@@ -26,18 +41,18 @@
       </g>
     </g>
     {#if !!rolledNum && rolledNum === 1}
-      <g id="white-top">
-        <g id="white-Dice-tri">
+      <g class="white-top">
+        <g class="white-Dice-tri">
           <path d="M50 35L62.9904 57.5H37.0096L50 35Z" fill="#7D7D7D" />
           <path
             d="M50 35L62.9904 57.5H37.0096L50 35Z"
             fill="url(#paint2_linear)" />
         </g>
-        <g id="white-hi">
+        <g class="white-hi">
           <path d="M50 35V50L37.0096 57.5L50 35Z" fill="#F4F4F4" />
           <path d="M50 35V50L37.0096 57.5L50 35Z" fill="url(#paint3_linear)" />
         </g>
-        <g id="white-low">
+        <g class="white-low">
           <path d="M50 35L62.9904 57.5L50 50V35Z" fill="#B9B9B9" />
           <path d="M50 35L62.9904 57.5L50 50V35Z" fill="url(#paint4_linear)" />
         </g>
