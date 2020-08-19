@@ -125,6 +125,7 @@ table .none {border: 0;}
 .tetra-dices { display: flex; flex-direction: column; justify-content: flex-end; border: 0px solid red; height: calc(8em + 2*2px); width: calc(2em + 2*2px); }
 .dicesBlock { border: 0px solid black; transition: width 0s, height 0s, top 0.2s, left 0.2s, background-color .4s ease-in-out; display: flex; flex-direction: column; justify-content: flex-start; align-items: flex-start;}
 .dicesBlock > * {border: 0px solid green; width: 100%;}
+.diceSvg {transition: all .5s ease;}
 
 :not(.ghostlayer) > .dicesBlock:not(.rolled) {animation: glowing 10000ms infinite;}
 
