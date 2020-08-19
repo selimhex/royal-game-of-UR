@@ -99,18 +99,6 @@
   };
 </script>
 
-<div class="status">
-  <pre>
-Round:<em>{$gameState.round}</em>
-it's <em data-player={currentPlayer}>Player {currentPlayer}</em>'s turn
-<!--$gameState.turn: <em>{$gameState.turn}</em>-->
-<!--dices rolled: <em>{String(!!($gameState.rolled))}</em> & player played: <em>{String(!!($gameState.played))}</em>-->
-{@html !!$gameState.rolled ? `<em data-player="${currentPlayer}">Player ${currentPlayer}</em> rolled the Dices` : `<em data-player="${currentPlayer}">Player ${currentPlayer}</em> hasn't rolled yet.`}
-<!--{@html ((!($gameState.played) && !!($gameState.rolled))) ? `Waiting for <em>Player ${currentPlayer}</em> to play` : ``}-->
-{@html $gameState.status}
-
-  </pre>
-</div>
 <div class="command">
   {#if $game.won}
     <button on:click={restart}>RESTART</button>

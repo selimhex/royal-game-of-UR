@@ -96,8 +96,15 @@ main {
 td {border: 2px solid #ccc; font-size: 1em;}
 .board {
 
-	font-size: 4vh;
+	font-size: 5vmin;
 }
+
+.status, .help {width: 100%; height: 100vh; position: absolute; top:0; left:0; z-index: 9; display: none; padding: 1em; overflow-y: scroll}
+.block, .visible{display:block;}
+.status nav, .help nav {float: right;}
+.status {background: #ff9696}
+.help {background: #fdff96}
+
 table {
 	
 	border-collapse: collapse;
@@ -138,7 +145,11 @@ table .none {border: 0;}
 */
 :not(.dices) > pre {text-align: left;}
 pre em {font-style: normal; font-weight: bold; background-color: #8506f644; padding: 0 .3em;}
-pre {border: 0px solid red}
+pre {border: 0px solid red;     white-space: pre-wrap;       /* Since CSS 2.1 */
+    white-space: -moz-pre-wrap;  /* Mozilla, since 1999 */
+    white-space: -pre-wrap;      /* Opera 4-6 */
+    white-space: -o-pre-wrap;    /* Opera 7 */
+    word-wrap: break-word;  }
 
 td, .pawn {
 	box-sizing: border-box;

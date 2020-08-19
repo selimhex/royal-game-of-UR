@@ -333,5 +333,29 @@ Try another move!`;
 
 <Dice bind:this={Wiwi}/>
 
+<nav>
+  <button on:click={()=>$gameState.view="status"}>log</button>
+  <button on:click={()=>$gameState.view="help"}>help</button>
+</nav>
+
+<div class="status" class:visible={$gameState.view==="status"}>
+  <nav><button on:click={()=>$gameState.view=""}>x</button></nav>
+  <pre>
+Round:<em>{$gameState.round}</em>
+it's <em data-player={currentPlayer}>Player {currentPlayer}</em>'s turn
+<!--$gameState.turn: <em>{$gameState.turn}</em>-->
+<!--dices rolled: <em>{String(!!($gameState.rolled))}</em> & player played: <em>{String(!!($gameState.played))}</em>-->
+{@html !!$gameState.rolled ? `<em data-player="${currentPlayer}">Player ${currentPlayer}</em> rolled the Dices` : `<em data-player="${currentPlayer}">Player ${currentPlayer}</em> hasn't rolled yet.`}
+<!--{@html ((!($gameState.played) && !!($gameState.rolled))) ? `Waiting for <em>Player ${currentPlayer}</em> to play` : ``}-->
+{@html $gameState.status}
+
+  </pre>
+</div>
+
+<div class="help" class:visible={$gameState.view==="help"}>
+  <nav><button on:click={()=>$gameState.view=""}>x</button></nav>
+  <h2>royal game of ur</h2>
+</div>
+
 {#if !($game.won)}<Dices dicesArr={$gameState.dicesArr} moveToDeck={true} rolled={$gameState.rolled} pos={deckPos} on:click={Wiwi.roll}/>{/if}
 <svelte:window bind:scrollY={sY} bind:scrollX={sX} bind:innerWidth={iW} bind:innerHeight={iH} />
