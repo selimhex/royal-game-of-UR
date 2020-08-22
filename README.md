@@ -1,11 +1,18 @@
-*Note that you will need to have [Node.js](https://nodejs.org) installed.*
+# Royal Game of Ur
 
-## Get started
+Single browser multiplayer game done with Svelte.
+
+![Royal Game of Ur - Gameplay](https://selimhex.github.io/royal-game-of-UR/public/assets/meta/RGOU_gameplay.jpg)
+
+---
+---
+---
+
+### Get started
 
 Install the dependencies...
 
 ```bash
-cd svelte-app
 npm install
 ```
 
@@ -20,10 +27,17 @@ Navigate to [localhost:5000](http://localhost:5000). You should see your app run
 By default, the server will only respond to requests from localhost. To allow connections from other computers, edit the `sirv` commands in package.json to include the option `--host 0.0.0.0`.
 
 
-## Building and running in production mode
-
+### Building and running in production mode
 To create an optimised version of the app:
 
 ```bash
 npm run build
+```
+
+### To start your own svelte project
+[https://github.com/sveltejs/template](https://github.com/sveltejs/template)
+
+```bash
+npx degit sveltejs/template svelte-app
+cd svelte-app
 ```
