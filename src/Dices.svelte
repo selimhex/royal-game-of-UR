@@ -4,6 +4,7 @@
   import { flip } from "svelte/animate";
   import { quintOut } from "svelte/easing";
   import { crossfade } from "svelte/transition";
+import { gameState } from "./stores";
 
   const [send, receive] = crossfade({
     duration: (d) => Math.sqrt(d * 200),
@@ -33,7 +34,7 @@
   
 </script>
 
-  <div class="dicesBlock" class:rolled {style} on:click>
+  <div class="dicesBlock" class:rolled class:helpglow={$gameState.settings.helpmode && !rolled} {style} on:click>
     {#each dicesArr as dice, i}
       <!--div class="die" class:rolled in:receive={{ key: i }}
   out:send={{ key: i }}-->

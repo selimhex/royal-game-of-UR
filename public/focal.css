@@ -1,0 +1,111 @@
+/*** DECO ***/
+
+body {background: url("assets/deco/woodentable.jpg"); background-size: cover}
+
+main {
+    text-align: center;
+    padding: 0em;    
+    margin: 0 auto;
+	display: flex;
+	flex-direction: column;
+    position: relative;
+    height: 100vh;
+}
+
+td {border: 2px solid #ccc; font-size: 1em;}
+.board {
+	font-size: 5vh;
+}
+
+/***** FULL SCREEN *****/
+.status, .help, .command {width: 100%; height: 100vh; position: absolute; top:0; left:0; z-index: 9; display: none; padding: 1em; overflow-y: scroll}
+.block, .visible{display:block;}
+.status nav, .help nav {float: right;}
+.status {background: #ff9696}
+.help {background: #fdff96}
+nav {position: absolute; top:0; left:0;}
+/***** FULL SCREEN *****/
+
+
+table { border-collapse: collapse;}
+table .none {border: 0;}
+td:not(.none):not(.start):not(.special) { background-color: #725b4888;}
+
+.board { display: grid; place-items: center; position: relative; min-height: 100%;}
+
+.deck1 .pawn, .pawn[data-owner="1"], [data-player="1"] {background-color: orange; }
+.deck2 .pawn, .pawn[data-owner="2"], [data-player="2"] {background-color: lightcoral;}
+.scoreboard {font-weight: bold;}
+.scoreboard[data-owner="1"] {color: orange;}
+.scoreboard[data-owner="2"] {color: lightcoral;}
+
+.deck {display: flex; flex-direction: column; align-items: flex-end; width: 10%; justify-content: space-between; border: 2px solid pink;}
+.deck2 {align-items: flex-start;}
+
+.pawns {display: flex; flex-direction: column; align-items: flex-end;}
+.pawns2 {align-items: flex-start;}
+
+.tetra-dices svg {width: 1em; height: 1em; border:0px solid lime; display: grid; place-items: center; padding-top: 0em;}
+
+.tetra-dices { display: flex; flex-direction: column; justify-content: flex-end; border: 0px solid red; height: calc(8em + 2*2px); width: calc(2em + 2*2px); }
+.dicesBlock { border: 0px solid black; transition: width 0s, height 0s, top 0.2s, left 0.2s, background-color .4s ease-in-out, box-shadow 0s ease; display: flex; flex-direction: column; justify-content: flex-start; align-items: flex-start;}
+.dicesBlock > * {border: 0px solid green; width: 100%;}
+.diceSvg {transition: all .5s ease; width: 100%; height: 100%;}
+
+
+@keyframes blinking {
+    50% { box-shadow: inset #ffd900 0em 0em 0em 0em, #ffd900 0em 0em 0em 0em; }
+    60% { box-shadow: inset #ffd900 0em 0em .2em .2em, #ffd900 0em 0em 1em -0.2em;}
+    70% { box-shadow: inset #ffd900 0em 0em 0em 0em, #ffd900 0em 0em 0em 0em;}
+    80% { box-shadow: inset #ffd900 0em 0em .2em .2em, #ffd900 0em 0em 1em 0em;}
+    90% { box-shadow: inset #ffd900 0em 0em 0em 0em, #ffd900 0em 0em 0em 0em;}
+    100% { }
+    
+    
+  }
+
+
+.helpglow /*, :not(.ghostlayer) > .dicesBlock:not(.rolled) */ {
+    filter: url(#sofGlow);
+    }
+
+
+td, .pawn {
+	box-sizing: border-box;
+	display: inline-block; margin: .5em; padding: 0em; width: 1em; height: 1em; outline: #ccc1 solid 1px;
+}
+td { min-width: 2em; width: 2em; height: 2em; margin:0; display: table-cell; position: relative;}
+.pawn {width: 2em; height: 2em; margin:0; display: grid; place-items: center; border: 0px solid red; border-radius: 1em; box-shadow: inset -.075em -.085em 0 0 #5143a588; position: absolute;}
+
+td .pawn {top:0;left:0;}
+td.special {background-color: #a3438688;}
+
+
+
+@media (orientation: portrait) {
+
+}
+@media (max-aspect-ratio: 5/8) {
+    .board {
+        font-size: 9.5vw;
+    }
+}
+@media (min-aspect-ratio: 5/8) {
+    .board {
+        font-size: calc(49vh/8);
+    }
+}
+
+@media (orientation: landscape) {
+
+	/* this will be the way to go on mobile !!!
+	main {transform: rotate(-90deg);}
+	*/
+  }
+
+/*table{background: rgb(77, 41, 0); outline-color: pink;}
+td:not(.none){background-color: #e27900;}
+td.none {background: #fff; border: 0;outline-color: #ccc1;}
+*/
+
+

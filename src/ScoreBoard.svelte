@@ -2,7 +2,7 @@
   import { game, gameState, board, pawns } from "./stores.js";
   export let col;
   let owner, ownerID, points;
-  ownerID = col === 0 ? 0 : 1;
+  ownerID = col === 1 ? 0 : 1;
   owner = ownerID +1;
   let filtArr;
   $: {

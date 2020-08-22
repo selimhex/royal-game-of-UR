@@ -62,9 +62,10 @@
       round: $gameState.round + 1,
       status: $gameState.status + "\n...next turn...",
       dicesArr: [0, 0, 0, 0],
+      settings: $gameState.settings
     };
     $gameState.turn = $gameState.turn;
-    console.log("NEXT TURN");
+    // console.log("NEXT TURN");
   };
   function isEmpty(obj) {
     return Object.keys(obj).length === 0;
@@ -72,24 +73,22 @@
 
   let move = function (owner, id, thisPawn) {
     let ownerID = owner - 1;
-    console.log(
-      mayItPlay(owner) ? `${owner} may play` : `${owner} may not play`
-    );
+    // console.log(  mayItPlay(owner) ? `${owner} may play` : `${owner} may not play`);
     if (mayItPlay(owner)) {
       let col;
       // ###### FIX findIndex -> find ?!?!?!??! ####
       const index = $pawns[ownerID].findIndex((item) => item.id === Number(id));
       const pawnObj = $pawns[ownerID][index];
       const orderToGo = pawnObj.loc + $gameState.diceToMove;
-      console.log(orderToGo, owner, pawnObj.id, pawnObj.loc);
+      // console.log(orderToGo, owner, pawnObj.id, pawnObj.loc);
       let found, foundOwn, foundOpponent;
       let foundBool,
         foundOwnBool,
         foundOpponentBool,
         canMoveBool = true;
       if (type(orderToGo) === "safe") {
-        col = Number(owner == 1 ? 0 : 2);
-        console.log("check col", col);
+        col = Number(owner == 1 ? 1 : 3);
+        // console.log("check col", col);
         if (orderToGo === 15) {
           pawnObj.loc = 15;
           $gameState.status = `<em>Player ${owner}'s</em> Pawn <em>${pawnObj.id}</em> made it!.\n1 Point for <em>Player ${owner}!</em>`;
@@ -109,7 +108,7 @@
         }
       } else {
         // !!!!!!!!!!!!!!!!!! ITS COMBAT ZONE!!!!!!!!!!!!!!!!!!
-        col = 1;
+        col = 2;
         foundOpponent = $pawns[(ownerID + 1) % 2].find(
           (e) => e.loc === orderToGo
         );
@@ -128,11 +127,11 @@
         }
       }
 
-      console.log("that cell", col, orderToGo);
+      //console.log("that cell", col, orderToGo);
 
       // ############## I CAN MOVE FREELY  ##############
       if (!found && !foundOwn && !foundOpponentBool && canMoveBool) {
-        console.log("MOVING PAWN");
+        //console.log("MOVING PAWN");
         $gameState.status += `\nPlayer <em data-player="${currentPlayer}">${currentPlayer}</em>'s Pawn #<em data-player="${currentPlayer}">${pawnObj.id}</em> moving to square <em>${orderToGo}</em>`;
         if (orderToGo === 8) {
           $gameState.status += `\nPawn is now <em>Untouchable</em>!`;
@@ -169,7 +168,7 @@ Try another move!`;
 
   let uniq = a => [...new Set(a)];
 
-  let hasMoves = function(player,diceToMove){
+  let hasMoves = function(player,diceToMove,thispawn=null){
     //console.log("player",player, "dicetomove",diceToMove);
     let newset = $pawns[player].map((t)=>(t.loc + diceToMove)).filter((t)=>t<16);
     let iCanGo2 = uniq(newset);
@@ -186,7 +185,15 @@ Try another move!`;
     let difference = iCanGo2.filter(x => !ownpawnsOnBoard.includes(x) && !opponentsSafePawn.includes(x));
     //console.log("difference",difference);
     //console.log(difference.length, (difference.length>0)?"has move":"no moves");
-    return ((difference.length>0)?true:false);
+    if (thispawn !== null & thispawn !== undefined) {
+      console.log ( "difference:", difference );
+      console.log ( "thispawn + diceToMove:", `${thispawn} + ${diceToMove} = ${thispawn+diceToMove}` );
+      console.log ( "movable pawns:", (difference.filter(x=>x===(thispawn+diceToMove)).length>0)?thispawn:null );
+      
+      console.log ((difference.filter(x=>x===(thispawn+diceToMove)).length>0)?`${player} ${diceToMove} ${thispawn}`:false);
+      return ((difference.filter(x=>x===(thispawn+diceToMove)).length>0)?true:false);
+    } else {
+      return ((difference.length>0)?true:false);}
     //newset = newset.some((e)=>( $pawns[player].filter((t)=>(t.loc !==e)) ));
     /*console.log("üstüme basma", newset.filter((n)=>
       $pawns[player].filter((t)=>(t.loc !==n)) 
@@ -210,7 +217,7 @@ Try another move!`;
   let activeDeck;
   let deckPos;
   deckPos = {top: null,left:null,width:null, height: null}
-  $: activeDeck = document.querySelector(`.deck${$gameState.turn+1} .tetra-dices`);
+  //$: activeDeck = document.querySelector(`.deck${$gameState.turn+1} .tetra-dices`);
   $: (deckPos)? deckPos.left : {} = ( (activeDeck) ? getOffset(activeDeck).left: undefined);
   $: (deckPos)? deckPos.top : {} = ( (activeDeck) ? getOffset(activeDeck).top: undefined);
   //$: console.log("deckPos",deckPos);
@@ -246,29 +253,13 @@ Try another move!`;
   <div class="ghostlayer" class:ghVisible={($gameState.rolled===1)}>
     <Dices dicesArr={$gameState.dicesArr} moveToDeck={false} rolled={$gameState.rolled} />
   </div>
-  <div class="deck deck1">
-    <div
-      class="pawns pawns1"
-      on:click={(e) => move(e.target.dataset.owner, e.target.dataset.pawnname, e.target)}>
-      {#each $pawns[0].filter((t) => t.loc === 0) as pawn (pawn.id)}
-        <div
-          class="pawn"
-          data-owner={pawn.p}
-          data-pawnname={pawn.id}
-          in:receive={{ key: pawn.key }}
-          out:send={{ key: pawn.key }}
-          animate:flip>
-          {pawn.id}
-        </div>
-      {/each}
-
-    </div>
-    <div class="tetra-dices" class:active={($gameState.turn===0)} bind:offsetWidth={t1width}
-    bind:offsetHeight={t1height}>
+  <!--<div class="deck deck1">
+    
+    <div class="tetra-dices" class:active={($gameState.turn===0)}>
       
     </div>
 
-  </div>
+  </div>-->
   <table>
 
     {#each $board[0].col[0] as row, iy}
@@ -278,6 +269,44 @@ Try another move!`;
             <td class="none">
               <ScoreBoard col={ix} />
             </td>
+          {:else if (iy == '0') && cell[iy] == '0'}
+          <td class="start none">
+            {#if ix === 0 || ix === 4 }
+            <div
+            class="pawns pawns{(ix===0? 1 : 2)}"
+            on:click={(e) => move(e.target.dataset.owner, e.target.dataset.pawnname, e.target)}>
+            {#each $pawns[(ix===0?0:1)].filter((t) => t.loc === 0) as pawn, pi (pawn.id)}
+              <div
+                class="pawn"
+                data-owner={pawn.p}
+                data-pawnname={pawn.id}
+                in:receive={{ key: pawn.key }}
+                out:send={{ key: pawn.key }}
+                animate:flip
+                class:helpglow={(
+                  ( (pawn.p===1?0:1) === $gameState.turn && $gameState.settings.helpmode && !!$gameState.rolled && ($gameState.diceToMove!==0) && pi < 1) ? ( hasMoves((pawn.p===1?0:1),$gameState.diceToMove, pawn.loc) ) : false
+                )}>
+                {pawn.id}
+              </div>
+            {/each}
+      
+            </div>
+            {/if}
+            </td>
+          {:else if ((ix == 0 || ix == 4) && (4 === iy))}
+           
+            {#if ( ( ($gameState.turn===0) && (ix===0)) || ( ($gameState.turn===1) && (ix===4) ) )}
+              <td class="none" rowspan="4" bind:this={activeDeck} bind:offsetWidth={t1width}
+              bind:offsetHeight={t1height}>
+              
+              </td>
+            {:else}
+            <td class="none" rowspan="4"></td>
+            {/if}
+          
+            
+          {:else if (ix===0 || ix===4) && (4 < iy)}
+          <!-- -->
           {:else if cell[iy] == '0'}
             <td class="none" />
           {:else}
@@ -289,13 +318,16 @@ Try another move!`;
               class={tdclass(cell[iy])}
               on:click={(e) => move(e.target.dataset.owner, e.target.dataset.pawnname, e.target)}>
               {#each $pawns as pawnsOf, i}
-                {#each pawnsOf.filter((t) => t.loc === cell[iy] && (type(t.loc) === 'safe' ? ix === (i === 0 ? 0 : 2) : true)) as pawn, iP}
+                {#each pawnsOf.filter((t) => t.loc === cell[iy] && (type(t.loc) === 'safe' ? ix === (i === 0 ? 1 : 3) : true)) as pawn, iP}
                   <div
                     class="pawn"
                     data-owner={pawn.p}
                     data-pawnname={pawn.id}
                     in:receive={{ key: pawn.key }}
-                    out:send={{ key: pawn.key }}>
+                    out:send={{ key: pawn.key }} 
+                    class:helpglow={(
+                      ( (pawn.p===1?0:1) === $gameState.turn && $gameState.settings.helpmode && !!$gameState.rolled && ($gameState.diceToMove!==0)) ? ( hasMoves((pawn.p===1?0:1),$gameState.diceToMove, pawn.loc) ) : false
+                    )}>
                     {pawn.id}
                   </div>
                 {/each}
@@ -308,34 +340,21 @@ Try another move!`;
     {/each}
 
   </table>
+  <!--
   <div class="deck deck2">
-    <div
-      class="pawns pawns2"
-      on:click={(e) => move(e.target.dataset.owner, e.target.dataset.pawnname, e.target)}>
-      {#each $pawns[1].filter((t) => t.loc === 0) as pawn (pawn.id)}
-        <div
-          class="pawn"
-          data-owner={pawn.p}
-          data-pawnname={pawn.id}
-          in:receive={{ key: pawn.key }}
-          out:send={{ key: pawn.key }}
-          animate:flip>
-          {pawn.id}
-        </div>
-      {/each}
-    </div>
+    
     <div class="tetra-dices" class:active={($gameState.turn===1)} >
       
     </div>
 
-  </div>
+  </div>-->
 </div>
 
 <Dice bind:this={Wiwi}/>
 
 <nav>
+  <button class:modepassive={!$gameState.settings.helpmode} on:click={()=>$gameState.settings.helpmode=!$gameState.settings.helpmode}>{$gameState.settings.helpmode?"help on":"help off"}</button>
   <button on:click={()=>$gameState.view="status"}>log</button>
-  <button on:click={()=>$gameState.view="help"}>help</button>
 </nav>
 
 <div class="status" class:visible={$gameState.view==="status"}>
@@ -359,3 +378,27 @@ it's <em data-player={currentPlayer}>Player {currentPlayer}</em>'s turn
 
 {#if !($game.won)}<Dices dicesArr={$gameState.dicesArr} moveToDeck={true} rolled={$gameState.rolled} pos={deckPos} on:click={Wiwi.roll}/>{/if}
 <svelte:window bind:scrollY={sY} bind:scrollX={sX} bind:innerWidth={iW} bind:innerHeight={iH} />
+
+
+<svg id="svgdefs">
+    <defs>
+     <filter id="sofGlow" height="300%" width="300%" x="-75%" y="-75%">
+       <!-- Thicken out the original shape -->
+       <feMorphology operator="dilate" radius="4" in="SourceAlpha" result="thicken" ><animate attributeName="radius" values="0;0;0;0;0;3;0;0;0;0;0;4;0;5;0;0;" dur="6s" repeatCount="indefinite"/>
+        </feMorphology>
+       <!-- Use a gaussian blur to create the soft blurriness of the glow -->
+       <feGaussianBlur in="thicken" stdDeviation="10" result="blurred">
+        <animate attributeName="stdDeviation" values="0;0;0;0;0;6;0;0;0;0;0;7;1;5;0;0;" dur="6s" repeatCount="indefinite"/>
+       </feGaussianBlur>
+       <!-- Change the colour -->
+       <feFlood flood-color="gold" result="glowColor" />
+       <!-- Color in the glows -->
+       <feComposite in="glowColor" in2="blurred" operator="in" result="softGlow_colored" />
+       <!--	Layer the effects together -->
+       <feMerge>
+         <feMergeNode in="softGlow_colored"/>
+         <feMergeNode in="SourceGraphic"/>
+       </feMerge>
+     </filter>
+    </defs>
+</svg>
