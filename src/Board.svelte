@@ -71,6 +71,16 @@
   function isEmpty(obj) {
     return Object.keys(obj).length === 0;
   }
+  
+  let key;
+	let keyCode;
+  function handleKeydown(event) {
+		key = event.key;
+    keyCode = event.keyCode;
+    if (key === 'Escape' || key==='Esc'){
+      $gameState.view="";
+    }
+	}
 
   let move = function (owner, id, thisPawn) {
     let ownerID = owner - 1;
@@ -397,7 +407,7 @@ it's <em data-player={currentPlayer}>Player {currentPlayer}</em>'s turn
 </div>
 
 {#if !($game.won)}<Dices dicesArr={$gameState.dicesArr} moveToDeck={true} rolled={$gameState.rolled} pos={deckPos} on:click={Wiwi.roll}/>{/if}
-<svelte:window bind:scrollY={sY} bind:scrollX={sX} bind:innerWidth={iW} bind:innerHeight={iH} />
+<svelte:window bind:scrollY={sY} bind:scrollX={sX} bind:innerWidth={iW} bind:innerHeight={iH} on:keydown={handleKeydown} />
 
 
 <svg id="svgdefs">
