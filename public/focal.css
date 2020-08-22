@@ -33,7 +33,7 @@ main nav {font-size:1rem}
 p,h1,h2,h3 {margin-top: 0em; margin-bottom: 0em;}
 h1 {font-size:2em}
 article {max-width: 60ch; margin: 0 auto;}
-li, p {margin-top: .75em; margin-bottom:.75em}
+.nbsp, li, p {margin-top: .75em; margin-bottom:.75em; min-height: 0.75em;}
 nav {position: absolute; top:0; left:0;}
 
 /***** FULL SCREEN *****/

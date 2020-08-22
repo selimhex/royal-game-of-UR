@@ -402,7 +402,8 @@ it's <em data-player={currentPlayer}>Player {currentPlayer}</em>'s turn
   <li>You gain a point when you can move your pawn with your exactly last move out of the board.</li>
   <li>Whoever gets <strong>7 points</strong> first wins!</li>
 </ul>
-<p>Not clear? OR too intrigued about the history of this game? Then you should watch this video featuring <strong>Irving Finkel</strong>, who discovered the long forgotten Game of UR:<br><a href="https://www.youtube.com/watch?v=WZskjLq040I">Tom Scott vs Irving Finkel: The Royal Game of Ur [25:32]</a></p>
+<div class="nbsp"></div>
+<p>Not clear? OR intrigued about the history of this game? Then you should watch this video featuring <strong>Irving Finkel</strong>, who discovered the long forgotten Game of UR:<br><a href="https://www.youtube.com/watch?v=WZskjLq040I">Tom Scott vs Irving Finkel: The Royal Game of Ur [25:32]</a></p>
 </article>
 </div>
 
