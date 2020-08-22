@@ -1,5 +1,7 @@
+import { writable as localwritable } from 'svelte-local-storage-store'
 import { writable } from 'svelte/store';
 
+export let localsettings = localwritable('localsettings', {helpmode:false});
 export let gameState = writable(
   {
     round: 1,
@@ -7,7 +9,7 @@ export let gameState = writable(
     rolled: 0,
     status: "",
     dicesArr: [0,0,0,0],
-    settings: {helpmode:true},
+    //settings: {helpmode:true},
     justScored: false
   }
 );

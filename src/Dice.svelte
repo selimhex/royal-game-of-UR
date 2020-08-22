@@ -21,7 +21,7 @@
       round: $gameState.round + 1,
       status: $gameState.status + "\n...next turn...",
       dicesArr: [0, 0, 0, 0],
-      settings: $gameState.settings,
+      //settings: $gameState.settings,
       justScored: false
     };
     console.log("NEXT TURN");

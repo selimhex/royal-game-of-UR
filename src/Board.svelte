@@ -1,5 +1,5 @@
 <script>
-  import { gameState, board, pawns, game } from "./stores.js";
+  import { localsettings, gameState, board, pawns, game } from "./stores.js";
   import Pawn from "./Pawn.svelte";
   import ScoreBoard from "./ScoreBoard.svelte";
   import Dice from "./Dice.svelte";
@@ -13,6 +13,7 @@
   import { crossfade } from "svelte/transition";
   import { onMount } from 'svelte';
 
+  $: console.log($localsettings);
 
   const [send, receive] = crossfade({
     duration: (d) => Math.sqrt(d * 200),
@@ -62,7 +63,7 @@
       round: $gameState.round + 1,
       status: $gameState.status + "\n...next turn...",
       dicesArr: [0, 0, 0, 0],
-      settings: $gameState.settings,
+      //settings: $gameState.settings,
       justScored: $gameState.justScored
     };
     $gameState.turn = $gameState.turn;    
@@ -300,7 +301,7 @@ Try another move!`;
                 out:send={{ key: pawn.key }}
                 animate:flip
                 class:helpglow={(
-                  ( (pawn.p===1?0:1) === $gameState.turn && $gameState.settings.helpmode && !!$gameState.rolled && ($gameState.diceToMove!==0) && pi < 1) ? ( hasMoves((pawn.p===1?0:1),$gameState.diceToMove, pawn.loc) ) : false
+                  ( (pawn.p===1?0:1) === $gameState.turn && $localsettings.helpmode && !!$gameState.rolled && ($gameState.diceToMove!==0) && pi < 1) ? ( hasMoves((pawn.p===1?0:1),$gameState.diceToMove, pawn.loc) ) : false
                 )}>
                 {pawn.id}
               </div>
@@ -342,7 +343,7 @@ Try another move!`;
                     in:receive={{ key: pawn.key }}
                     out:send={{ key: pawn.key }} 
                     class:helpglow={(
-                      ( (pawn.p===1?0:1) === $gameState.turn && $gameState.settings.helpmode && !!$gameState.rolled && ($gameState.diceToMove!==0)) ? ( hasMoves((pawn.p===1?0:1),$gameState.diceToMove, pawn.loc) ) : false
+                      ( (pawn.p===1?0:1) === $gameState.turn && $localsettings.helpmode && !!$gameState.rolled && ($gameState.diceToMove!==0)) ? ( hasMoves((pawn.p===1?0:1),$gameState.diceToMove, pawn.loc) ) : false
                     )}>
                     {pawn.id}
                   </div>
@@ -369,7 +370,7 @@ Try another move!`;
 <Dice bind:this={Wiwi}/>
 
 <nav>
-  <button class:modepassive={!$gameState.settings.helpmode} on:click={()=>$gameState.settings.helpmode=!$gameState.settings.helpmode}>{$gameState.settings.helpmode?"help on":"help off"}</button>
+  <button class:modepassive={!$localsettings.helpmode} on:click={()=>$localsettings.helpmode=!$localsettings.helpmode}>{$localsettings.helpmode?"help on":"help off"}</button>
   <button on:click={()=>$gameState.view="status"}>log</button>
   <button on:click={()=>$gameState.view="rules"}>rules</button>
 </nav>
