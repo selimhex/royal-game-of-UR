@@ -365,7 +365,7 @@ Try another move!`;
 </nav>
 
 <div class="status fullscreen" class:visible={$gameState.view==="status"}>
-  <nav><button on:click={()=>$gameState.view=""}>x</button></nav>
+  <nav><button class="closebutton" on:click={()=>$gameState.view=""}>x</button></nav>
   <pre>
 Round:<em>{$gameState.round}</em>
 it's <em data-player={currentPlayer}>Player {currentPlayer}</em>'s turn
@@ -379,7 +379,7 @@ it's <em data-player={currentPlayer}>Player {currentPlayer}</em>'s turn
 </div>
 
 <div class="rules fullscreen" class:visible={$gameState.view==="rules"}>
-  <nav><button on:click={()=>$gameState.view=""}>x</button></nav>
+  <nav><button class="closebutton" on:click={()=>$gameState.view=""}>x</button></nav>
   <article>
   <h1>Royal Game of UR</h1>
   <p>... is a two-player strategy race board game that is ~4500years old.</p>
@@ -392,6 +392,7 @@ it's <em data-player={currentPlayer}>Player {currentPlayer}</em>'s turn
   <li>You gain a point when you can move your pawn with your exactly last move out of the board.</li>
   <li>Whoever gets <strong>7 points</strong> first wins!</li>
 </ul>
+<p>Not clear? OR too intrigued about the history of this game? Then you should watch this video featuring <strong>Irving Finkel</strong>, who discovered the long forgotten Game of UR:<br><a href="https://www.youtube.com/watch?v=WZskjLq040I">Tom Scott vs Irving Finkel: The Royal Game of Ur [25:32]</a></p>
 </article>
 </div>
 

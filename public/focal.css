@@ -23,7 +23,8 @@ main nav {font-size:1rem}
 .status, .rules, .help, .command {width: 100%; height: 100vh; position: absolute; top:0; left:0; z-index: -9;  padding: 2em; overflow-y: scroll}
 .block, .visible{display:block; opacity:1;z-index:9;transition: all .5s ease-in-out;}
 
-.status nav, .rules nav {position: fixed; top:0; left:initial; right:0;}
+.status nav, .rules nav {position: fixed; top:0; left:initial; right:0; font-size: 1em;}
+.closebutton {font-size: 1.5em;}
 .status {background: #ff9696; }
 .rules {background: #cccd;}
 .command {display: flex; flex-direction: column; justify-content: space-between;  font-size: 1em;}
