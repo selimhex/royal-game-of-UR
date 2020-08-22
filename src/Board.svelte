@@ -392,10 +392,10 @@ it's <em data-player={currentPlayer}>Player {currentPlayer}</em>'s turn
 <div class="rules fullscreen" class:visible={$gameState.view==="rules"}>
   <nav><button class="closebutton" on:click={()=>$gameState.view=""}>x</button></nav>
   <article>
-  <h1>Royal Game of UR</h1>
+  <h1>Royal Game of Ur</h1>
   <p>... is a two-player strategy race board game that is ~4500years old.</p>
   <ul><li>When it's your turn, you roll all 4 tetrahedron (like pyramids, but all sides are triangles) shaped dices.</li>
-  <li>You count the white marked edges that land on top, and move a pawn of your as many squares. All of the movement has to be done by 1 pawn.</li>
+  <li>You count the white marked edges that land on top, and move a pawn of yours as many squares. All of the movement has to be done by 1 pawn.</li>
   <li>You can't land on your own pawns.</li>
   <li>You can't land on your opponents pawn if its on the special square in the middle of <strong>War Zone</strong>.</li>
   <li>You pawns are safe so long as they're in the <strong>Safe Zone</strong>, which is <strong>first 4</strong> and <strong>last 2 squares</strong> on your path.</li>
@@ -404,7 +404,7 @@ it's <em data-player={currentPlayer}>Player {currentPlayer}</em>'s turn
   <li>Whoever gets <strong>7 points</strong> first wins!</li>
 </ul>
 <div class="nbsp"></div>
-<p>Not clear? OR intrigued about the history of this game? Then you should watch this video featuring <strong>Irving Finkel</strong>, who discovered the long forgotten Game of UR:<br><a href="https://www.youtube.com/watch?v=WZskjLq040I">Tom Scott vs Irving Finkel: The Royal Game of Ur [25:32]</a></p>
+<p>Not clear? OR intrigued about the history of this game? Then you should watch this video featuring <strong>Irving Finkel</strong>, who discovered the long forgotten Game of Ur:<br><a href="https://www.youtube.com/watch?v=WZskjLq040I">Tom Scott vs Irving Finkel: The Royal Game of Ur [25:32]</a></p>
 </article>
 </div>
 
