@@ -21,7 +21,8 @@
       round: $gameState.round + 1,
       status: $gameState.status + "\n...next turn...",
       dicesArr: [0, 0, 0, 0],
-      settings: $gameState.settings
+      settings: $gameState.settings,
+      justScored: false
     };
     console.log("NEXT TURN");
   };
@@ -54,7 +55,8 @@
       dicesArr: [0, 0, 0, 0],
       played: 0,
       rolled: 0,
-      settings: $gameState.settings
+      settings: $gameState.settings,
+      justScored: false
     };
     $game = {
       points: [],
@@ -102,9 +104,9 @@
 </script>
 
 
-  {#if $game.won}
-  <div class="command">
+  <div class="command fullscreen" class:visible={$game.won}>
+    <p data-owner={$game.won}>Player {$game.won} won!</p>
     <button on:click={restart}>RESTART</button>
+    <p></p>
   </div>
-  {/if}
 

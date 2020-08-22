@@ -7,7 +7,8 @@ export let gameState = writable(
     rolled: 0,
     status: "",
     dicesArr: [0,0,0,0],
-    settings: {helpmode:true}
+    settings: {helpmode:true},
+    justScored: false
   }
 );
 

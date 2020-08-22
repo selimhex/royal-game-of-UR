@@ -11,10 +11,11 @@
   $game.points[ownerID] = points;
   }
 
+  $: console.log ("justScored",$gameState.justScored);
   $: {if ($game.points[ownerID] === 7) {
       $game.won = owner;
       $gameState.status = `<em class="special">Player ${owner} Won!</em>`;
   }}
 </script>
 
-<div class="scoreboard" data-owner="{owner}">{points}</div>
+<div class="scoreboard" class:won={!!($game.won)} data-owner="{owner}" class:glowOnce={$gameState.justScored && !$game.won}>{points}</div>

@@ -62,9 +62,10 @@
       round: $gameState.round + 1,
       status: $gameState.status + "\n...next turn...",
       dicesArr: [0, 0, 0, 0],
-      settings: $gameState.settings
+      settings: $gameState.settings,
+      justScored: $gameState.justScored
     };
-    $gameState.turn = $gameState.turn;
+    $gameState.turn = $gameState.turn;    
     // console.log("NEXT TURN");
   };
   function isEmpty(obj) {
@@ -73,6 +74,7 @@
 
   let move = function (owner, id, thisPawn) {
     let ownerID = owner - 1;
+    $gameState.justScored = false;
     // console.log(  mayItPlay(owner) ? `${owner} may play` : `${owner} may not play`);
     if (mayItPlay(owner)) {
       let col;
@@ -91,6 +93,10 @@
         // console.log("check col", col);
         if (orderToGo === 15) {
           pawnObj.loc = 15;
+          $gameState.justScored = true;
+          setTimeout(() => {
+                $gameState.justScored=false;
+              }, 2000)
           $gameState.status = `<em>Player ${owner}'s</em> Pawn <em>${pawnObj.id}</em> made it!.\n1 Point for <em>Player ${owner}!</em>`;
         } else if (orderToGo > 15) {
           canMoveBool = false;
@@ -355,9 +361,10 @@ Try another move!`;
 <nav>
   <button class:modepassive={!$gameState.settings.helpmode} on:click={()=>$gameState.settings.helpmode=!$gameState.settings.helpmode}>{$gameState.settings.helpmode?"help on":"help off"}</button>
   <button on:click={()=>$gameState.view="status"}>log</button>
+  <button on:click={()=>$gameState.view="rules"}>rules</button>
 </nav>
 
-<div class="status" class:visible={$gameState.view==="status"}>
+<div class="status fullscreen" class:visible={$gameState.view==="status"}>
   <nav><button on:click={()=>$gameState.view=""}>x</button></nav>
   <pre>
 Round:<em>{$gameState.round}</em>
@@ -371,9 +378,21 @@ it's <em data-player={currentPlayer}>Player {currentPlayer}</em>'s turn
   </pre>
 </div>
 
-<div class="help" class:visible={$gameState.view==="help"}>
+<div class="rules fullscreen" class:visible={$gameState.view==="rules"}>
   <nav><button on:click={()=>$gameState.view=""}>x</button></nav>
-  <h2>royal game of ur</h2>
+  <article>
+  <h1>Royal Game of UR</h1>
+  <p>... is a two-player strategy race board game that is ~4500years old.</p>
+  <ul><li>When it's your turn, you roll all 4 tetrahedron (like pyramids, but all sides are triangles) shaped dices.</li>
+  <li>You count the white marked edges that land on top, and move a pawn of your as many squares. All of the movement has to be done by 1 pawn.</li>
+  <li>You can't land on your own pawns.</li>
+  <li>You can't land on your opponents pawn if its on the special square in the middle of <strong>War Zone</strong>.</li>
+  <li>You pawns are safe so long as they're in the <strong>Safe Zone</strong>, which is <strong>first 4</strong> and <strong>last 2 squares</strong> on your path.</li>
+  <li>If you land on one of your opponents pawns, it'll be moved back to the starting point.</li>
+  <li>You gain a point when you can move your pawn with your exactly last move out of the board.</li>
+  <li>Whoever gets <strong>7 points</strong> first wins!</li>
+</ul>
+</article>
 </div>
 
 {#if !($game.won)}<Dices dicesArr={$gameState.dicesArr} moveToDeck={true} rolled={$gameState.rolled} pos={deckPos} on:click={Wiwi.roll}/>{/if}
@@ -400,5 +419,23 @@ it's <em data-player={currentPlayer}>Player {currentPlayer}</em>'s turn
          <feMergeNode in="SourceGraphic"/>
        </feMerge>
      </filter>
+     <filter id="glowOnce" height="300%" width="300%" x="-75%" y="-75%">
+      <!-- Thicken out the original shape -->
+      <feMorphology operator="dilate" radius="0" in="SourceAlpha" result="thicken" ><animate attributeName="radius" values="1;2;0;0;0;0;" dur="1s" repeatCount="indefinite"/>
+       </feMorphology>
+      <!-- Use a gaussian blur to create the soft blurriness of the glow -->
+      <feGaussianBlur in="thicken" stdDeviation="0" result="blurred">
+       <animate attributeName="stdDeviation" values="9;3;1;0;0;0;" dur="1s" repeatCount="indefinite"/>
+      </feGaussianBlur>
+      <!-- Change the colour -->
+      <feFlood flood-color="gold" result="glowColor" />
+      <!-- Color in the glows -->
+      <feComposite in="glowColor" in2="blurred" operator="in" result="softGlow_colored" />
+      <!--	Layer the effects together -->
+      <feMerge>
+        <feMergeNode in="softGlow_colored"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
     </defs>
 </svg>
