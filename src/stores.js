@@ -1,7 +1,7 @@
 import { writable as localwritable } from 'svelte-local-storage-store'
 import { writable } from 'svelte/store';
 
-export let localsettings = localwritable('localsettings', {helpmode:false});
+export let localsettings = localwritable('localsettings', {helpmode:true});
 export let gameState = writable(
   {
     round: 1,
