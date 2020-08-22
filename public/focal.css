@@ -92,7 +92,7 @@ td.special {background-color: #a3438688;}
 }
 @media (min-aspect-ratio: 5/8) {
     .board {
-        font-size: calc(49vh/8);
+        font-size: calc(49vh/9);
     }
 }
 
