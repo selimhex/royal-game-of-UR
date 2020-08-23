@@ -1,36 +1,36 @@
 {
-    "name": "Royal Game of Ur",
-    "short_name": "Game of Ur",
-    "description": "A Single Browser Multiplayer version of Royal Game of Ur ⟁",
-    "lang": "en-US",
-    "start_url": "./",
-    "scope": "./",
-    "display": "fullscreen",
-    "theme_color": "#FCC12D",
-    "icons": [
-      {
-        "src": "assets/meta/dice-144.png",
-        "sizes": "144x144",
-        "type": "image/png"
-      },
-      {
-        "src": "assets/meta/dice-192.png",
-        "sizes": "192x192",
-        "type": "image/png"
-      },
-      {
-        "src": "assets/meta/dice-512.svg",
-        "sizes": "512x512",
-        "type": "image/svg+xml"
-      }
-      
-    ],
-    "background_color": "#FFEDC1",
-    "screenshots": [
-      {
-        "src": "assets/meta/RGOU_gameplay.jpg",
-        "sizes": "2204x1430",
-        "type": "image/jpg"
-      }
-    ]
-  }
+  "name": "Royal Game of Ur",
+  "short_name": "Game of Ur",
+  "description": "A Single Browser Multiplayer version of Royal Game of Ur ⟁",
+  "lang": "en-US",
+  "start_url": "./",
+  "scope": "./",
+  "display": "fullscreen",
+  "theme_color": "#FCC12D",
+  "icons": [
+    {
+      "src": "assets/meta/dice-144.png",
+      "sizes": "144x144",
+      "type": "image/png"
+    },
+    {
+      "src": "assets/meta/dice-192.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "assets/meta/dice-512.svg",
+      "sizes": "512x512",
+      "type": "image/svg+xml"
+    }
+    
+  ],
+  "background_color": "#FFEDC1",
+  "screenshots": [
+    {
+      "src": "assets/meta/RGOU_gameplay.jpg",
+      "sizes": "2204x1430",
+      "type": "image/jpg"
+    }
+  ]
+}
