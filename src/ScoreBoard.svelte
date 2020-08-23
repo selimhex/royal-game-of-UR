@@ -11,7 +11,7 @@
   $game.points[ownerID] = points;
   }
 
-  $: console.log ("justScored",$gameState.justScored);
+  //$: console.log ("justScored",$gameState.justScored);
   $: {if ($game.points[ownerID] === 7) {
       $game.won = owner;
       $gameState.status = `<em class="special">Player ${owner} Won!</em>`;

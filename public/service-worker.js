@@ -1,4 +1,6 @@
-var CACHE = 'cache-and-update';
+console.log('Hello from service-worker.js');
+
+var CACHE = 'cacheandupdate';
 
 // On install, cache some resources.
 self.addEventListener('install', function(evt) {
@@ -8,6 +10,10 @@ self.addEventListener('install', function(evt) {
   // resolves.
   evt.waitUntil(precache());
 });
+
+
+
+
 
 // On fetch, use cache but update the entry with the latest contents
 // from the server.
@@ -27,8 +33,23 @@ function precache() {
   return caches.open(CACHE).then(function (cache) {
     return cache.addAll([
       //'./controlled.html',
-      './assets'
-    ]);
+      './assets/squares/sq1.png',
+      './assets/squares/sq2.png',
+      './assets/squares/sq3.png',
+      './assets/squares/sq4.png',
+      './assets/squares/sq5.png',
+      './assets/squares/rosette.png',
+      './assets/fonts/leander_regular/Leander-webfont.woff',
+      './assets/deco/woodentable.jpg',
+      './index.html',
+      './build/bundle.js',
+      './build/bundle.css',
+      './global.css',
+      './focal.css',
+      './favicon.svg'
+    ])
+    .then(() => console.log('Assets added to cache'))
+    .catch(err => console.log('Error while fetching assets', err));
   });
 }
 
@@ -52,3 +73,4 @@ function update(request) {
     });
   });
 }
+
