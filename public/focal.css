@@ -25,7 +25,7 @@ main nav {font-size:1rem}
 
 .status nav, .rules nav {position: fixed; top:0; left:initial; right:0; font-size: 1em;}
 .closebutton {font-size: 1.5em;}
-.status {background: #ff9696; }
+.status {background: #cccd; }
 .rules {background: #cccd;}
 .command {display: flex; flex-direction: column; justify-content: space-between;  font-size: 1em;}
 .command * {margin-left:auto;margin-right: auto;}
