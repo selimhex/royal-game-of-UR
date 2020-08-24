@@ -2,8 +2,8 @@
   "name": "svelte-app",
   "version": "1.0.0",
   "scripts": {
-    "build": "node-sass src/sass/main.scss public/glocal.css & rollup -c",
-    "dev": "node-sass src/sass/main.scss public/glocal.css --watch & rollup -c -w",
+    "build": "rollup -c",
+    "dev": "rollup -c -w",
     "start": "sirv public",
     "watch-sass": "node-sass src/sass/main.scss public/glocal.css --watch",
     "compile-sass": "node-sass src/sass/main.scss public/glocal.css"

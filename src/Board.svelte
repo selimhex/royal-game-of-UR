@@ -81,7 +81,35 @@
     if (key === 'Escape' || key==='Esc'){
       $gameState.view="";
     }
-	}
+  }
+
+  let deferredPrompt, installBtn;
+  function beforeinstallprompt(e){
+    // Prevent Chrome 67 and earlier from automatically showing the prompt
+    e.preventDefault();
+    // Stash the event so it can be triggered later.
+    deferredPrompt = e;
+    // Update UI to notify the user they can add to home screen
+    installBtn.style.display = 'flex';
+
+  }
+
+  function installprompt (e) {
+
+    // hide our user interface that shows our A2HS button
+      installBtn.style.display = 'none';
+      // Show the prompt
+      deferredPrompt.prompt();
+      // Wait for the user to respond to the prompt
+      deferredPrompt.userChoice.then((choiceResult) => {
+          if (choiceResult.outcome === 'accepted') {
+            console.log('User accepted the A2HS prompt');
+          } else {
+            console.log('User dismissed the A2HS prompt');
+          }
+          deferredPrompt = null;
+        });
+    }
 
   let move = function (owner, id, thisPawn) {
     let ownerID = owner - 1;
@@ -373,6 +401,7 @@ Try another move!`;
   <button class:modepassive={!$localsettings.helpmode} on:click={()=>$localsettings.helpmode=!$localsettings.helpmode}>{$localsettings.helpmode?"help on":"help off"}</button>
   <button on:click={()=>$gameState.view="status"}>log</button>
   <button on:click={()=>$gameState.view="rules"}>rules</button>
+  <button class="lastX" style="display:none;" bind:this={installBtn} on:click={installprompt}>install <img alt="Royal Game of Ur" src="assets/meta/dice7.svg"/></button>
 </nav>
 
 <div class="status fullscreen" class:visible={$gameState.view==="status"}>
@@ -409,7 +438,7 @@ it's <em data-player={currentPlayer}>Player {currentPlayer}</em>'s turn
 </div>
 
 {#if !($game.won)}<Dices dicesArr={$gameState.dicesArr} moveToDeck={true} rolled={$gameState.rolled} pos={deckPos} on:click={Wiwi.roll}/>{/if}
-<svelte:window bind:scrollY={sY} bind:scrollX={sX} bind:innerWidth={iW} bind:innerHeight={iH} on:keydown={handleKeydown} />
+<svelte:window bind:scrollY={sY} bind:scrollX={sX} bind:innerWidth={iW} bind:innerHeight={iH} on:keydown={handleKeydown} on:beforeinstallprompt={beforeinstallprompt} />
 
 
 <svg id="svgdefs">
