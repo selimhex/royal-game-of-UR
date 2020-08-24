@@ -398,7 +398,7 @@ Try another move!`;
 <Dice bind:this={Wiwi}/>
 
 <nav>
-  <button class:modepassive={!$localsettings.helpmode} on:click={()=>$localsettings.helpmode=!$localsettings.helpmode}>{$localsettings.helpmode?"help on":"help off"}</button>
+  <button class:modepassive={!$localsettings.helpmode} on:click={()=>$localsettings.helpmode=!$localsettings.helpmode}>{$localsettings.helpmode?"help:on":"help:off"}</button>
   <button on:click={()=>$gameState.view="status"}>log</button>
   <button on:click={()=>$gameState.view="rules"}>rules</button>
   <button class="lastX" style="display:none;" bind:this={installBtn} on:click={installprompt}>install <img alt="Royal Game of Ur" src="assets/meta/dice7.svg"/></button>
